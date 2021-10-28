@@ -2,11 +2,11 @@
 	<!-- Content Header (Page header) -->
 	<section class="content-header">
 		<h1>
-			Profil Perusahaan
+			<?php echo $dt['nama_perusahaan']; ?>
 		</h1>
 		<ol class="breadcrumb">
-			<li><a href="<?php base_url('Ptmada/') ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-			<li><a href="<?php base_url() ?>/ptmada/Ptmada/lihat_perusahaan">Pejabat</a></li>
+			<li><a href="<?php base_url('Ptmada/') ?>"> Master Data</a></li>
+			<li><a href="<?php base_url() ?>/ptmada/Ptmada/lihat_perusahaan">Perusahaan</a></li>
 			<li class="active">Profil Perusahaan</li>
 		</ol>
 	</section>
@@ -20,61 +20,107 @@
 				<div class="nav-tabs-custom">
 					<ul class="nav nav-tabs">
 						<li class="active"><a href="#profilpejabat" data-toggle="tab">Profil Perusahaan</a></li>
+						<li><a href="#persyaratan" data-toggle="tab">Persyaratan</a></li>
 						<li><a href="#history" data-toggle="tab">Histori Proyek</a></li>
 					</ul>
 					<div class="tab-content">
 						<div class="active tab-pane" id="profilpejabat">
 							<div class="card-body">
-								<div class="col-md-6">
-									<strong><i class="fa fa-building margin-r-5"></i> Nama Perusahaan</strong>
-									<p>
-										<?php echo $dt['nama_perusahaan']; ?>
-									</p>
-									<strong><i class="fa fa-user margin-r-5"></i> Nama Pimpinan</strong>
-									<p>
-										<?php echo $dt['nama_direktur']; ?>
-									</p>
-									<strong><i class="fa fa-briefcase margin-r-5"></i> Jabatan Pimpinan</strong>
-									<p>
-										<?php echo $dt['jab_pimpinan']; ?>
-									</p>
-									<strong><i class="fa fa-user margin-r-5"></i> Nama Pejabat Penghubung</strong>
-									<p>
-										<?php echo $dt['nama_pejabat']; ?>
-									</p>
-									<strong><i class="fa fa-user margin-r-5"></i> Nama Agent</strong>
-									<p>
-										<?php echo $dt['nama_agent']; ?>
-									</p>
-									<strong><i class="fa fa-building margin-r-5"></i> NPWP</strong>
-									<p>
-										<?php echo $dt['npwp']; ?>
-									</p>
-									<strong><i class="fa fa-map-marker margin-r-5"></i> Alamat</strong>
-									<p>
-										<?php echo $dt['alamat']; ?>
-									</p>
-								</div>
-								<div class="col-md-6">
-									<strong><i class="fa fa-phone-square margin-r-5"></i> Nomor Telpon</strong>
-									<p>
-										<?php echo $dt['no_telpon']; ?>
-									</p>
-									<strong><i class="fa fa-fax margin-r-5"></i>Nomor Fax</strong>
-									<p>
-										<?php echo $dt['no_fax']; ?>
-									</p>
-									<strong><i class="fa fa-envelope-square margin-r-5"></i>Email</strong>
-									<p>
-										<?php echo $dt['email']; ?>
-									</p>
-								</div>
+								<div class="row">
+									<div class="col-md-6">
+										<table class="table table-striped table-hover table-bordered">
+											<tbody>
+												<tr>
+													<td><strong><i class="fa fa-building margin-r-5"></i> Nama Perusahaan</strong></td>
+												</tr>
+												<tr>
+													<td><?php echo $dt['nama_perusahaan']; ?></td>
+												</tr>
 
+												<tr>
+													<td><strong><i class="fa fa-user margin-r-5"></i> Nama Pimpinan</strong></td>
+												</tr>
+												<tr>
+													<td><?php echo $dt['nama_direktur']; ?></td>
+												</tr>
+
+												<tr>
+													<td><strong><i class="fa fa-briefcase margin-r-5"></i> Jabatan Pimpinan</strong></td>
+												</tr>
+												<tr>
+													<td><?php echo $dt['jab_pimpinan']; ?></td>
+												</tr>
+
+												<tr>
+													<td><strong><i class="fa fa-user margin-r-5"></i> Nama Pejabat Penghubung</strong></td>
+												</tr>
+												<tr>
+													<td><?php echo $dt['nama_pejabat']; ?></td>
+												</tr>
+
+												<tr>
+													<td><strong><i class="fa fa-user margin-r-5"></i> Nama Agent</strong></td>
+												</tr>
+												<tr>
+													<td><?php echo $dt['nama_agent']; ?></td>
+												</tr>
+
+											</tbody>
+										</table>
+									</div>
+									<div class="col-md-6">
+										<table class="table table-striped table-hover table-bordered">
+											<tbody>
+												<tr>
+													<td><strong><i class="fa fa-building margin-r-5"></i> NPWP</strong></td>
+												</tr>
+												<tr>
+													<td><?php echo $dt['npwp']; ?></td>
+												</tr>
+
+												<tr>
+													<td><strong><i class="fa fa-map-marker margin-r-5"></i> Alamat</strong></td>
+												</tr>
+												<tr>
+													<td><?php echo $dt['alamat']; ?></td>
+												</tr>
+												<tr>
+													<td><strong><i class="fa fa-phone-square margin-r-5"></i> Nomor Telpon</strong></td>
+												</tr>
+												<tr>
+													<td><?php echo $dt['no_telpon']; ?></td>
+												</tr>
+
+												<tr>
+													<td><strong><i class="fa fa-fax margin-r-5"></i>Nomor Fax</strong></td>
+												</tr>
+												<tr>
+													<td><?php echo $dt['no_fax']; ?></td>
+												</tr>
+
+												<tr>
+													<td><strong><i class="fa fa-envelope-square margin-r-5"></i>Email</strong></td>
+												</tr>
+												<tr>
+													<td><?php echo $dt['email']; ?></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-6">
+										<a href="<?php echo site_url('Ptmada/edit_perusahaan/' . $dt['kd_perusahaan']); ?>"><button class="btn btn-success"><i class="fa fa-edit"></i> Edit</button></a>
+									</div>
+								</div>
 							</div>
+						</div>
+
+						<div class="tab-pane" id="persyaratan">
 							<div class="card-body">
 								<div class="row">
 									<div class="col-md-12">
-										<table class="table table-hover" style="height: 10px; overflow-y: scroll; overflow-x: scroll;">
+										<table class="table table-striped table-hover table-bordered" style="height: 10px; overflow-y: scroll; overflow-x: scroll;">
 											<tr>
 												<th style="width: 10px">#</th>
 												<th>Persyaratan</th>
@@ -90,11 +136,13 @@
 													</div>
 												</td>
 												<td>
+													<?php if($dt['company_profile']!="Tidak Ada Data"){ ?>
 													<a href="<?php echo base_url() ?>file/persyaratan/<?php echo $dt['company_profile']; ?>" title="Open File" target="_blank">
 														<button class="btn btn-info btn-sm" data-toggle="tooltip" data-placement="auto" title="Lihat File">
 								                            <i class="fa fa-eye"></i>
 								                        </button>
 													</a>
+													<?php }?>
 												</td>
 											</tr>
 
@@ -108,11 +156,13 @@
 													</div>
 												</td>
 												<td>
+													<?php if($dt['akta_pendirian']!="Tidak Ada Data"){ ?>
 													<a href="<?php echo base_url() ?>file/persyaratan/<?php echo $dt['akta_pendirian']; ?>" title="Open File" target="_blank">
 														<button class="btn btn-info btn-sm" data-toggle="tooltip" data-placement="auto" title="Lihat File">
 								                            <i class="fa fa-eye"></i>
 								                        </button>
 								                    </a>
+								                    <?php }?>
 												</td>
 											</tr>
 
@@ -309,6 +359,47 @@
 												</td>
 											</tr>
 
+											<!-- Edit By Adiguna -->
+											<tr>
+												<td>13.</td>
+												<td>Tanda Keanggotaan Asosiasi</td>
+												<td>
+													<div class="">
+														<?php echo $dt['tanda_keanggotaan_asosiasi'] ?>
+													</div>
+												</td>
+
+												<td>
+													<?php if($dt['tanda_keanggotaan_asosiasi']!="Tidak Ada Data"){ ?>
+													<a href="<?php echo base_url() ?>file/persyaratan/<?php echo $dt['tanda_keanggotaan_asosiasi']; ?>" title="Open File" target="_blank">
+														<button class="btn btn-info btn-sm" data-toggle="tooltip" data-placement="auto" title="Lihat File">
+								                            <i class="fa fa-eye"></i>
+								                        </button>
+													</a>
+													<?php }?>
+												</td>
+											</tr>
+
+											<tr>
+												<td>14.</td>
+												<td>Akta Perubahan Perusahaan</td>
+												<td>
+													<div class="">
+														<?php echo $dt['akta_perubahan_perusahaan'] ?>
+													</div>
+												</td>
+
+												<td>
+													<?php if($dt['akta_perubahan_perusahaan']!="Tidak Ada Data"){ ?>
+													<a href="<?php echo base_url() ?>file/persyaratan/<?php echo $dt['akta_perubahan_perusahaan']; ?>" title="Open File" target="_blank">
+														<button class="btn btn-info btn-sm" data-toggle="tooltip" data-placement="auto" title="Lihat File">
+								                            <i class="fa fa-eye"></i>
+								                        </button>
+													</a>
+													<?php }?>
+												</td>
+											</tr>
+
 
 										</table>
 
@@ -324,9 +415,8 @@
 									<tr>
 										<th>No</th>
 										<th>Nomor Permohonan</th>
-										<th>Nama Perusahaan</th>
+										<th>Tanggal Permohonan</th>
 										<th>Nama Pejabat</th>
-										<!-- <th>Jenis Jaminan</th> -->
 										<th>Nama Pekerjaan</th>
 										<th>Nilai Proyek</th>
 										<th>Detail</th>
@@ -340,9 +430,8 @@
 										<tr>
 											<td><?php echo $no++; ?></td>
 											<td><?php echo $dt['no_permohonan']; ?></td>
-											<td><?php echo $dt['nama_perusahaan']; ?></td>
+											<td><?php echo format_indo($dt['tgl_permohonan']); ?></td>
 											<td><?php echo $dt['nama_pejabat']; ?></td>
-											<!-- <td><?php echo $dt['jenis_jaminan']; ?></td> -->
 											<td><?php echo $dt['nama_pekerjaan']; ?></td>
 											<td><?php echo "Rp. " . number_format($dt['nilai_proyek'], 2, ',', '.'); ?></td>
 											<td>
@@ -359,18 +448,6 @@
 									}
 									?>
 								</tbody>
-								<tfoot>
-									<tr>
-										<th>No</th>
-										<th>Nomor Permohonan</th>
-										<th>Nama Perusahaan</th>
-										<th>Nama Pejabat</th>
-										<!--  <th>Jenis Jaminan</th> -->
-										<th>Nama Pekerjaan</th>
-										<th>Nilai Proyek</th>
-										<th>Detail</th>
-									</tr>
-								</tfoot>
 							</table>
 						</div>
 

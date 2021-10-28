@@ -9,6 +9,8 @@ class Ptmada extends CI_Controller
         $this->load->model('M_mada');
         $this->load->model('Kode');
         $this->load->helper('nominal_helper.php');
+        $this->load->helper('tanggal_helper.php');
+
         $this->load->library('form_validation');
 
         if($this->session->userdata('status') != 'Login'){

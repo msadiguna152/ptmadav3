@@ -186,13 +186,19 @@ class M_mada extends CI_Model
 
 	public function lihat_perusahaan()
 	{
-		$query = $this->db->query("SELECT * from perusahaan where status='Aktif' order by kd_perusahaan DESC");
+		$query = $this->db->query("SELECT perusahaan.kd_perusahaan, perusahaan.nama_perusahaan, perusahaan.nama_direktur, perusahaan.alamat, perusahaan.status from perusahaan where status='Aktif' order by kd_perusahaan DESC");
 		return $query->result_array();
 	}
 
+	// public function lihat_perusahaan()
+	// {
+	// 	$query = $this->db->query("SELECT * from perusahaan where status='Aktif' order by kd_perusahaan DESC");
+	// 	return $query->result_array();
+	// }
+
 	public function get_perusahaan($kd_perusahaan)
 	{
-		$query = $this->db->query("SELECT perusahaan.kd_perusahaan, perusahaan.nama_perusahaan, perusahaan.nama_direktur, perusahaan.jab_pimpinan, perusahaan.email, perusahaan.no_fax, perusahaan.no_telpon, perusahaan.alamat, perusahaan.company_profile, perusahaan.akta_pendirian, perusahaan.spkmgr, perusahaan.stdp, perusahaan.siup, perusahaan.sktu, perusahaan.siujk, perusahaan.spt, perusahaan.npwp, perusahaan.ktp, perusahaan.laporan_keuangan, perusahaan.proyek_sebelumnya, perusahaan.npwp_file, agent.kd_agent, agent.nama_agent, pejabat.kd_pejabat, pejabat.nama_pejabat from agent join perusahaan on agent.kd_agent=perusahaan.kd_agent join pejabat on pejabat.kd_pejabat=perusahaan.kd_pejabat where perusahaan.kd_perusahaan='$kd_perusahaan'");
+		$query = $this->db->query("SELECT perusahaan.akta_perubahan_perusahaan, perusahaan.tanda_keanggotaan_asosiasi, perusahaan.kd_perusahaan, perusahaan.nama_perusahaan, perusahaan.nama_direktur, perusahaan.jab_pimpinan, perusahaan.email, perusahaan.no_fax, perusahaan.no_telpon, perusahaan.alamat, perusahaan.company_profile, perusahaan.akta_pendirian, perusahaan.spkmgr, perusahaan.stdp, perusahaan.siup, perusahaan.sktu, perusahaan.siujk, perusahaan.spt, perusahaan.npwp, perusahaan.ktp, perusahaan.laporan_keuangan, perusahaan.proyek_sebelumnya, perusahaan.npwp_file, agent.kd_agent, agent.nama_agent, pejabat.kd_pejabat, pejabat.nama_pejabat from agent join perusahaan on agent.kd_agent=perusahaan.kd_agent join pejabat on pejabat.kd_pejabat=perusahaan.kd_pejabat where perusahaan.kd_perusahaan='$kd_perusahaan'");
 		return $query->row_array();
 	}
 
@@ -300,10 +306,294 @@ class M_mada extends CI_Model
 			$npwp_file  = $result['file_name'];
 		}
 
+		$this->load->library('upload', $config);
+		if (!$this->upload->do_upload('tanda_keanggotaan_asosiasi')) {
+			$tanda_keanggotaan_asosiasi = 'Tidak Ada Data';
+		} else {
+			$result = $this->upload->data();
+			$tanda_keanggotaan_asosiasi  = $result['file_name'];
+		}
+
+		$this->load->library('upload', $config);
+		if (!$this->upload->do_upload('akta_perubahan_perusahaan')) {
+			$akta_perubahan_perusahaan = 'Tidak Ada Data';
+		} else {
+			$result = $this->upload->data();
+			$akta_perubahan_perusahaan  = $result['file_name'];
+		}
+
 		$data = array(
 			'kd_perusahaan' => $_POST['kd_perusahaan'],
 			'nama_direktur' => $_POST['nama_direktur'],
 			'nama_perusahaan' => $_POST['nama_perusahaan'],
+			'npwp' => $_POST['npwp'],
+			'email' => $_POST['email'],
+			'no_telpon' => $_POST['no_telpon'],
+			'no_fax' => $_POST['no_fax'],
+			'alamat' => $_POST['alamat'],
+			'jab_pimpinan' => $_POST['Jabatan'],
+			'kd_agent' => $_POST['kd_agent'],
+			'kd_pejabat' => $_POST['kd_pejabat'],
+			'company_profile' => $company_profil,
+			'akta_pendirian' => $akta_pendirian,
+			'spkmgr' => $spkmgr,
+			'stdp' => $stdp,
+			'siup' => $siup,
+			'sktu' => $sktu,
+			'siujk' => $siujk,
+			'spt' => $spt,
+			'ktp' => $ktp,
+			'laporan_keuangan' => $laporan_keuangan,
+			'proyek_sebelumnya' => $proyek_sebelumnya,
+			'tanda_keanggotaan_asosiasi' => $tanda_keanggotaan_asosiasi,
+			'akta_perubahan_perusahaan' => $akta_perubahan_perusahaan,
+			'status' => 'Aktif',
+			'npwp_file' => $npwp_file,
+
+		);
+
+		$this->db->insert('perusahaan', $data);
+	}
+
+	public function proses_edit_perusahaan()
+	{
+		$config = array(
+			'upload_path' => './file/persyaratan/',
+			'allowed_types' => 'jpg|png|jpeg|pdf'
+
+		);
+
+		//$this->upload->do_upload('company_profil') == "Tidak Ada Data"
+
+		if ($this->input->post('hapus_cp') != 'Hapus File') {
+			$this->load->library('upload', $config);
+			if ($this->upload->do_upload('company_profil') == NUll) {
+				$company_profil = $_POST['company_profile_lama'];
+			} else {
+				if (!$this->upload->do_upload('company_profil')) {
+					$company_profil = 'Tidak Ada Data';
+				} else {
+					$result = $this->upload->data();
+					$company_profil = $result['file_name'];
+				}
+			}
+		}else{
+			$company_profil = 'Tidak Ada Data';
+		}
+
+		if ($this->input->post('hapus_ap') != 'Hapus File') {
+			$this->load->library('upload', $config);
+			if ($this->upload->do_upload('akta_pendirian') == NUll) {
+				$akta_pendirian = $_POST['akta_pendirian_lama'];
+			} else {
+				if (!$this->upload->do_upload('akta_pendirian')) {
+					$akta_pendirian = 'Tidak Ada Data';
+				} else {
+					$result = $this->upload->data();
+					$akta_pendirian = $result['file_name'];
+				}
+			}
+		}else{
+			$akta_pendirian = 'Tidak Ada Data';
+		}
+
+		if ($this->input->post('hapus_spkmgr') != 'Hapus File') {
+			$this->load->library('upload', $config);
+			if ($this->upload->do_upload('spkmgr') == NUll) {
+				$spkmgr = $_POST['spkmgr_lama'];
+			} else {
+				if (!$this->upload->do_upload('spkmgr')) {
+					$spkmgr = 'Tidak Ada Data';
+				} else {
+					$result = $this->upload->data();
+					$spkmgr = $result['file_name'];
+				}
+			}
+		}else{
+			$spkmgr = 'Tidak Ada Data';
+		}
+
+		if ($this->input->post('hapus_stdp') != 'Hapus File') {
+			$this->load->library('upload', $config);
+			if ($this->upload->do_upload('stdp') == NUll) {
+				$stdp = $_POST['stdp_lama'];
+			} else {
+				if (!$this->upload->do_upload('stdp')) {
+					$stdp = 'Tidak Ada Data';
+				} else {
+					$result = $this->upload->data();
+					$stdp = $result['file_name'];
+				}
+			}
+		}else{
+			$stdp = 'Tidak Ada Data';
+		}
+
+		if ($this->input->post('hapus_siup') != 'Hapus File') {
+			$this->load->library('upload', $config);
+			if ($this->upload->do_upload('siup') == NUll) {
+				$siup = $_POST['siup_lama'];
+			} else {
+				if (!$this->upload->do_upload('siup')) {
+					$siup = 'Tidak Ada Data';
+				} else {
+					$result = $this->upload->data();
+					$siup = $result['file_name'];
+				}
+			}
+		}else{
+			$siup = 'Tidak Ada Data';
+		}
+
+		if ($this->input->post('hapus_sktu') != 'Hapus File') {
+			$this->load->library('upload', $config);
+			if ($this->upload->do_upload('sktu') == NUll) {
+				$sktu = $_POST['sktu_lama'];
+			} else {
+				if (!$this->upload->do_upload('sktu')) {
+					$sktu = 'Tidak Ada Data';
+				} else {
+					$result = $this->upload->data();
+					$sktu = $result['file_name'];
+				}
+			}
+		}else{
+			$sktu = 'Tidak Ada Data';
+		}
+
+		if ($this->input->post('hapus_siujk') != 'Hapus File') {
+			$this->load->library('upload', $config);
+			if ($this->upload->do_upload('siujk') == NUll) {
+				$siujk = $_POST['siujk_lama'];
+			} else {
+				if (!$this->upload->do_upload('siujk')) {
+					$siujk = 'Tidak Ada Data';
+				} else {
+					$result = $this->upload->data();
+					$siujk = $result['file_name'];
+				}
+			}
+		}else{
+			$siujk = 'Tidak Ada Data';
+		}
+
+		if ($this->input->post('hapus_spt') != 'Hapus File') {
+			$this->load->library('upload', $config);
+			if ($this->upload->do_upload('spt') == NUll) {
+				$spt = $_POST['spt_lama'];
+			} else {
+				if (!$this->upload->do_upload('spt')) {
+					$spt = 'Tidak Ada Data';
+				} else {
+					$result = $this->upload->data();
+					$spt = $result['file_name'];
+				}
+			}
+		}else{
+			$spt = 'Tidak Ada Data';
+		}
+
+		if ($this->input->post('hapus_ktp') != 'Hapus File') {
+			$this->load->library('upload', $config);
+			if ($this->upload->do_upload('ktp') == NUll) {
+				$ktp = $_POST['ktp_lama'];
+			} else {
+				if (!$this->upload->do_upload('ktp')) {
+					$ktp = 'Tidak Ada Data';
+				} else {
+					$result = $this->upload->data();
+					$ktp = $result['file_name'];
+				}
+			}
+		}else{
+			$ktp = 'Tidak Ada Data';
+		}
+
+		if ($this->input->post('hapus_lk') != 'Hapus File') {
+			$this->load->library('upload', $config);
+			if ($this->upload->do_upload('laporan') == NUll) {
+				$laporan_keuangan = $_POST['laporan_lama'];
+			} else {
+				if (!$this->upload->do_upload('laporan')) {
+					$laporan_keuangan = 'Tidak Ada Data';
+				} else {
+					$result = $this->upload->data();
+					$laporan_keuangan = $result['file_name'];
+				}
+			}
+		}else{
+			$laporan_keuangan = 'Tidak Ada Data';
+		}
+
+		if ($this->input->post('hapus_ps') != 'Hapus File') {
+			$this->load->library('upload', $config);
+			if ($this->upload->do_upload('proyek') == NUll) {
+				$proyek_sebelumnya = $_POST['proyek_lama'];
+			} else {
+				if (!$this->upload->do_upload('proyek')) {
+					$proyek_sebelumnya = 'Tidak Ada Data';
+				} else {
+					$result = $this->upload->data();
+					$proyek_sebelumnya = $result['file_name'];
+				}
+			}
+		}else{
+			$proyek_sebelumnya = 'Tidak Ada Data';
+		}
+
+		if ($this->input->post('hapus_npwp') != 'Hapus File') {
+			$this->load->library('upload', $config);
+			if ($this->upload->do_upload('npwp_file') == NUll) {
+				$npwp_file = $_POST['npwp_lama'];
+			} else {
+				if (!$this->upload->do_upload('npwp_file')) {
+					$npwp_file = 'Tidak Ada Data';
+				} else {
+					$result = $this->upload->data();
+					$npwp_file = $result['file_name'];
+				}
+			}
+		}else{
+			$npwp_file = 'Tidak Ada Data';
+		}
+
+		if ($this->input->post('hapus_kta') != 'Hapus File') {
+			$this->load->library('upload', $config);
+			if ($this->upload->do_upload('tanda_keanggotaan_asosiasi') == NUll) {
+				$tanda_keanggotaan_asosiasi = $_POST['tanda_keanggotaan_asosiasi_lama'];
+			} else {
+				if (!$this->upload->do_upload('tanda_keanggotaan_asosiasi')) {
+					$tanda_keanggotaan_asosiasi = 'Tidak Ada Data';
+				} else {
+					$result = $this->upload->data();
+					$tanda_keanggotaan_asosiasi = $result['file_name'];
+				}
+			}
+		}else{
+			$tanda_keanggotaan_asosiasi = 'Tidak Ada Data';
+		}
+
+		if ($this->input->post('hapus_app') != 'Hapus File') {
+			$this->load->library('upload', $config);
+			if ($this->upload->do_upload('akta_perubahan_perusahaan') == NUll) {
+				$akta_perubahan_perusahaan = $_POST['akta_perubahan_perusahaan_lama'];
+			} else {
+				if (!$this->upload->do_upload('akta_perubahan_perusahaan')) {
+					$akta_perubahan_perusahaan = 'Tidak Ada Data';
+				} else {
+					$result = $this->upload->data();
+					$akta_perubahan_perusahaan = $result['file_name'];
+				}
+			}
+		}else{
+			$akta_perubahan_perusahaan = 'Tidak Ada Data';
+		}
+		
+
+		$data = array(
+			'kd_perusahaan' => $_POST['kd_perusahaan'],
+			'nama_perusahaan' => $_POST['nama_perusahaan'],
+			'nama_direktur' => $_POST['nama_direktur'],
 			'npwp' => $_POST['npwp'],
 			'email' => $_POST['email'],
 			'no_telpon' => $_POST['no_telpon'],
@@ -325,191 +615,8 @@ class M_mada extends CI_Model
 			'proyek_sebelumnya' => $proyek_sebelumnya,
 			'status' => 'Aktif',
 			'npwp_file' => $npwp_file,
-
-		);
-
-		$this->db->insert('perusahaan', $data);
-	}
-
-	public function proses_edit_perusahaan()
-	{
-		$config = array(
-			'upload_path' => './file/persyaratan/',
-			'allowed_types' => 'jpg|png|jpeg|pdf'
-
-		);
-
-		//$this->upload->do_upload('company_profil') == "Tidak Ada Data"
-		$this->load->library('upload', $config);
-		if ($this->upload->do_upload('company_profil') == NUll) {
-			$company_profil = $_POST['company_profile_lama'];
-		} else {
-			if (!$this->upload->do_upload('company_profil')) {
-				$company_profil = 'Tidak Ada Data';
-			} else {
-				$result = $this->upload->data();
-				$company_profil = $result['file_name'];
-			}
-		}
-
-		$this->load->library('upload', $config);
-		if ($this->upload->do_upload('akta_pendirian') == NUll) {
-			$akta_pendirian = $_POST['akta_pendirian_lama'];
-		} else {
-			if (!$this->upload->do_upload('akta_pendirian')) {
-				$akta_pendirian = 'Tidak Ada Data';
-			} else {
-				$result = $this->upload->data();
-				$akta_pendirian = $result['file_name'];
-			}
-		}
-
-		$this->load->library('upload', $config);
-		if ($this->upload->do_upload('spkmgr') == NUll) {
-			$spkmgr = $_POST['spkmgr_lama'];
-		} else {
-			if (!$this->upload->do_upload('spkmgr')) {
-				$spkmgr = 'Tidak Ada Data';
-			} else {
-				$result = $this->upload->data();
-				$spkmgr = $result['file_name'];
-			}
-		}
-
-		$this->load->library('upload', $config);
-		if ($this->upload->do_upload('stdp') == NUll) {
-			$stdp = $_POST['stdp_lama'];
-		} else {
-			if (!$this->upload->do_upload('stdp')) {
-				$stdp = 'Tidak Ada Data';
-			} else {
-				$result = $this->upload->data();
-				$stdp = $result['file_name'];
-			}
-		}
-
-		$this->load->library('upload', $config);
-		if ($this->upload->do_upload('siup') == NUll) {
-			$siup = $_POST['siup_lama'];
-		} else {
-			if (!$this->upload->do_upload('siup')) {
-				$siup = 'Tidak Ada Data';
-			} else {
-				$result = $this->upload->data();
-				$siup = $result['file_name'];
-			}
-		}
-
-		$this->load->library('upload', $config);
-		if ($this->upload->do_upload('sktu') == NUll) {
-			$sktu = $_POST['sktu_lama'];
-		} else {
-			if (!$this->upload->do_upload('sktu')) {
-				$sktu = 'Tidak Ada Data';
-			} else {
-				$result = $this->upload->data();
-				$sktu = $result['file_name'];
-			}
-		}
-
-		$this->load->library('upload', $config);
-		if ($this->upload->do_upload('siujk') == NUll) {
-			$siujk = $_POST['siujk_lama'];
-		} else {
-			if (!$this->upload->do_upload('siujk')) {
-				$siujk = 'Tidak Ada Data';
-			} else {
-				$result = $this->upload->data();
-				$siujk = $result['file_name'];
-			}
-		}
-
-
-		$this->load->library('upload', $config);
-		if ($this->upload->do_upload('spt') == NUll) {
-			$spt = $_POST['spt_lama'];
-		} else {
-			if (!$this->upload->do_upload('spt')) {
-				$spt = 'Tidak Ada Data';
-			} else {
-				$result = $this->upload->data();
-				$spt = $result['file_name'];
-			}
-		}
-
-		$this->load->library('upload', $config);
-		if ($this->upload->do_upload('ktp') == NUll) {
-			$ktp = $_POST['ktp_lama'];
-		} else {
-			if (!$this->upload->do_upload('ktp')) {
-				$ktp = 'Tidak Ada Data';
-			} else {
-				$result = $this->upload->data();
-				$ktp = $result['file_name'];
-			}
-		}
-
-		$this->load->library('upload', $config);
-		if ($this->upload->do_upload('laporan') == NUll) {
-			$laporan_keuangan = $_POST['laporan_lama'];
-		} else {
-			if (!$this->upload->do_upload('laporan')) {
-				$laporan_keuangan = 'Tidak Ada Data';
-			} else {
-				$result = $this->upload->data();
-				$laporan_keuangan = $result['file_name'];
-			}
-		}
-
-		$this->load->library('upload', $config);
-		if ($this->upload->do_upload('proyek') == NUll) {
-			$proyek_sebelumnya = $_POST['proyek_lama'];
-		} else {
-			if (!$this->upload->do_upload('proyek')) {
-				$proyek_sebelumnya = 'Tidak Ada Data';
-			} else {
-				$result = $this->upload->data();
-				$proyek_sebelumnya = $result['file_name'];
-			}
-		}
-
-		$this->load->library('upload', $config);
-		if ($this->upload->do_upload('npwp_file') == NUll) {
-			$npwp_file = $_POST['npwp_lama'];
-		} else {
-			if (!$this->upload->do_upload('npwp_file')) {
-				$npwp_file = 'Tidak Ada Data';
-			} else {
-				$result = $this->upload->data();
-				$npwp_file = $result['file_name'];
-			}
-		}
-
-		$data = array(
-			'kd_perusahaan' => $_POST['kd_perusahaan'],
-			'nama_perusahaan' => $_POST['nama_perusahaan'],
-			'nama_direktur' => $_POST['nama_direktur'],
-			'npwp' => $_POST['npwp'],
-			'email' => $_POST['email'],
-			'no_telpon' => $_POST['no_telpon'],
-			'no_fax' => $_POST['no_fax'],
-			'alamat' => $_POST['alamat'],
-			'jab_pimpinan' => $_POST['Jabatan'],
-			'kd_agent' => $_POST['kd_agent'],
-			'kd_pejabat' => $_POST['kd_pejabat'],
-			'company_profile' => $company_profil,
-			'akta_pendirian' => $akta_pendirian,
-			'spkmgr' => $spkmgr,
-			'stdp' => $stdp,
-			'siup' => $siup,
-			'sktu' => $sktu,
-			'siujk' => $siujk,
-			'spt' => $spt,
-			'ktp' => $ktp,
-			'laporan_keuangan' => $laporan_keuangan,
-			'proyek_sebelumnya' => $proyek_sebelumnya,
-			'status' => 'Aktif',
-			'npwp_file' => $npwp_file
+			'tanda_keanggotaan_asosiasi' => $tanda_keanggotaan_asosiasi,
+			'akta_perubahan_perusahaan' => $akta_perubahan_perusahaan,
 
 		);
 
@@ -653,7 +760,6 @@ class M_mada extends CI_Model
 	public function lihat_permohonan()
 	{
 		$query = $this->db->query("SELECT permohonan.no_permohonan, permohonan.id_permohonan, perusahaan.nama_perusahaan,perusahaan.kd_perusahaan,pejabat.kd_pejabat, pejabat.nama_pejabat,permohonan.nama_pekerjaan, permohonan.nilai_proyek from perusahaan join permohonan on perusahaan.kd_perusahaan=permohonan.kd_perusahaan join pejabat on pejabat.kd_pejabat=permohonan.kd_pejabat  order by permohonan.id_permohonan DESC")->result_array();
-		//$query = $this->db->query("SELECT permohonan.no_permohonan, permohonan.id_permohonan, perusahaan.nama_perusahaan,perusahaan.kd_perusahaan,pejabat.kd_pejabat, pejabat.nama_pejabat,permohonan.nama_pekerjaan, permohonan.nilai_proyek, jenis_jaminan.jenis_jaminan from perusahaan join permohonan on perusahaan.kd_perusahaan=permohonan.kd_perusahaan join pejabat on pejabat.kd_pejabat=permohonan.kd_pejabat join persen on persen.persen=permohonan.persen join jenis_jaminan on jenis_jaminan.kd_jenis=persen.kd_jenis order by permohonan.id_permohonan DESC")->result_array();
 		return $query;
 	}
 

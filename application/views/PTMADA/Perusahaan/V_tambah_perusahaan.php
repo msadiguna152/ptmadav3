@@ -1,4 +1,5 @@
-<!-- Content Wrapper. Contains page content -->
+
+
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
   <section class="content-header">
@@ -21,11 +22,11 @@
           <div class="box-body">
             <div class="row">
 
-              <form method="POST" action="<?php echo base_url('Ptmada/proses_tambah_perusahaan') ?>" enctype="multipart/form-data">
+              <form method="POST" action="<?php echo base_url('Ptmada/proses_tambah_perusahaan') ?>" onsubmit="return validasi()" enctype="multipart/form-data">
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="exampleInputPassword1">Nama Perusahaan</label>
-                    <input type="text" name="nama_perusahaan" class="form-control" value="<?= set_value('nama_perusahaan')?>" placeholder="Nama Perusahaan" required="" autofocus autocomplete="off">
+                    <input type="text" name="nama_perusahaan" id="nama_perusahaan" class="form-control" value="<?= set_value('nama_perusahaan')?>" placeholder="Nama Perusahaan" required="" autofocus autocomplete="off">
                     <input type="hidden" name="kd_perusahaan" class="form-control" placeholder="Nama Perusahaan" required="" value="<?php echo $kode ?>">
                   </div>
                   <div class="form-group">
@@ -131,6 +132,15 @@
                     <label for="exampleInputFile">NPWP</label>
                     <input type="file" name="npwp_file">
                   </div>
+                  <!-- Perbaikan By Adiguna -->
+                  <div class="form-group">
+                    <label for="exampleInputFile">Tanda Keanggotaan Asosiasi</label>
+                    <input type="file" name="tanda_keanggotaan_asosiasi">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputFile">Akta Perubahan Perusahaan</label>
+                    <input type="file" name="akta_perubahan_perusahaan">
+                  </div>
                   <!-- /.form-group -->
                 </div>
                 <!-- /.col -->
@@ -145,6 +155,28 @@
 
           </form>
         </div>
+        <script type="text/javascript">
+          function validasi() {
+            var get_nama_perusahaan = document.getElementById("nama_perusahaan").value;
+            if (get_nama_perusahaan == "Adiguna") {
+              alert('Nama Perusahaan Sudah Ada!');
+              return false;
+            }
+            
+            <?php 
+              $sql_perusahaan = $this->db->query("SELECT * from perusahaan")->result_array();
+              foreach ($sql_perusahaan as $dt1) {
+            ?>
+              else if (get_nama_perusahaan == "<?php echo $dt1['nama_perusahaan']; ?>"){
+                alert('Nama Perusahaan Sudah Ada!');
+                return false;
+              }
+            <?php } ?>
+            else{
+              return true;
+            }
+          }
+        </script>
       </div>
       <!-- /.box -->
 
@@ -168,4 +200,5 @@
 </section>
 <!-- /.content -->
 </div>
-<!-- /.content-wrapper -->
+<!-- /.content-wrapper
+

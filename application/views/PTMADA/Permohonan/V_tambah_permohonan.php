@@ -16,10 +16,9 @@
           $("#id_persen").html(respond);
         },
         error: function() {
-          alert('hahah');
+          alert('Eror!');
         }
       })
-
 
     })
   })
