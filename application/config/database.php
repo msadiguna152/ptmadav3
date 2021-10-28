@@ -117,7 +117,7 @@ $db['ptmada2'] = array(
 	'save_queries' => TRUE
 );
 
-$db['ptmada///'] = array(
+$db['ptmada'] = array(
 	'dsn'	=> '',
 	'hostname' => 'mysql-pemulung.alwaysdata.net:3306',
 	'username' => 'pemulung_rutik',
