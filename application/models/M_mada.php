@@ -198,7 +198,7 @@ class M_mada extends CI_Model
 
 	public function get_perusahaan($kd_perusahaan)
 	{
-		$query = $this->db->query("SELECT perusahaan.akta_perubahan_perusahaan, perusahaan.tanda_keanggotaan_asosiasi, perusahaan.kd_perusahaan, perusahaan.nama_perusahaan, perusahaan.nama_direktur, perusahaan.jab_pimpinan, perusahaan.email, perusahaan.no_fax, perusahaan.no_telpon, perusahaan.alamat, perusahaan.company_profile, perusahaan.akta_pendirian, perusahaan.spkmgr, perusahaan.stdp, perusahaan.siup, perusahaan.sktu, perusahaan.siujk, perusahaan.spt, perusahaan.npwp, perusahaan.ktp, perusahaan.laporan_keuangan, perusahaan.proyek_sebelumnya, perusahaan.npwp_file, agent.kd_agent, agent.nama_agent, pejabat.kd_pejabat, pejabat.nama_pejabat from agent join perusahaan on agent.kd_agent=perusahaan.kd_agent join pejabat on pejabat.kd_pejabat=perusahaan.kd_pejabat where perusahaan.kd_perusahaan='$kd_perusahaan'");
+		$query = $this->db->query("SELECT perusahaan.foto_ttd, perusahaan.akta_perubahan_perusahaan, perusahaan.tanda_keanggotaan_asosiasi, perusahaan.kd_perusahaan, perusahaan.nama_perusahaan, perusahaan.nama_direktur, perusahaan.jab_pimpinan, perusahaan.email, perusahaan.no_fax, perusahaan.no_telpon, perusahaan.alamat, perusahaan.company_profile, perusahaan.akta_pendirian, perusahaan.spkmgr, perusahaan.stdp, perusahaan.siup, perusahaan.sktu, perusahaan.siujk, perusahaan.spt, perusahaan.npwp, perusahaan.ktp, perusahaan.laporan_keuangan, perusahaan.proyek_sebelumnya, perusahaan.npwp_file, agent.kd_agent, agent.nama_agent, pejabat.kd_pejabat, pejabat.nama_pejabat from agent join perusahaan on agent.kd_agent=perusahaan.kd_agent join pejabat on pejabat.kd_pejabat=perusahaan.kd_pejabat where perusahaan.kd_perusahaan='$kd_perusahaan'");
 		return $query->row_array();
 	}
 
@@ -209,6 +209,14 @@ class M_mada extends CI_Model
 			'allowed_types' => 'jpg|png|jpeg|pdf'
 
 		);
+
+		$this->load->library('upload', $config);
+		if (!$this->upload->do_upload('foto_ttd')) {
+			$foto_ttd = 'Tidak Ada Data';
+		} else {
+			$result = $this->upload->data();
+			$foto_ttd = $result['file_name'];
+		}
 
 		$this->load->library('upload', $config);
 		if (!$this->upload->do_upload('company_profil')) {
@@ -349,7 +357,7 @@ class M_mada extends CI_Model
 			'akta_perubahan_perusahaan' => $akta_perubahan_perusahaan,
 			'status' => 'Aktif',
 			'npwp_file' => $npwp_file,
-
+			'foto_ttd' => $foto_ttd,
 		);
 
 		$this->db->insert('perusahaan', $data);
@@ -363,7 +371,21 @@ class M_mada extends CI_Model
 
 		);
 
-		//$this->upload->do_upload('company_profil') == "Tidak Ada Data"
+		if ($this->input->post('hapus_ttd') != 'Hapus File') {
+			$this->load->library('upload', $config);
+			if ($this->upload->do_upload('foto_ttd') == NUll) {
+				$foto_ttd = $_POST['foto_ttd_lama'];
+			} else {
+				if (!$this->upload->do_upload('foto_ttd')) {
+					$foto_ttd = 'Tidak Ada Data';
+				} else {
+					$result = $this->upload->data();
+					$foto_ttd = $result['file_name'];
+				}
+			}
+		}else{
+			$foto_ttd = 'Tidak Ada Data';
+		}
 
 		if ($this->input->post('hapus_cp') != 'Hapus File') {
 			$this->load->library('upload', $config);
@@ -617,7 +639,7 @@ class M_mada extends CI_Model
 			'npwp_file' => $npwp_file,
 			'tanda_keanggotaan_asosiasi' => $tanda_keanggotaan_asosiasi,
 			'akta_perubahan_perusahaan' => $akta_perubahan_perusahaan,
-
+			'foto_ttd' => $foto_ttd,
 		);
 
 		$this->db->where('kd_perusahaan', $_POST['kd_perusahaan']);
@@ -783,7 +805,7 @@ class M_mada extends CI_Model
 
 	public function get_permohonan($id_permohonan)
 	{
-		return $query = $this->db->query("SELECT permohonan.tgl_permohonan,permohonan.tgl_komitmen,permohonan.catatan_dokumen,permohonan.status,perusahaan.jab_pimpinan, permohonan.pemilik, permohonan.alamat_perusahaan, permohonan.id_permohonan,permohonan.no_permohonan,kabupaten.kd_kabupaten,dokumen.kd_dokumen,perusahaan.nama_perusahaan,agent.kd_agent, perusahaan.no_telpon, perusahaan.no_fax,perusahaan.email, perusahaan.alamat,perusahaan.nama_direktur, permohonan.no_urut, permohonan.persen,jenis_permohonan.jenis_permohonan, permohonan.nilai_jaminan,instansi.instansi,instansi.alamat_instansi,kabupaten.kabupaten,agent.nama_agent,dokumen.dokumen, permohonan.jangka_waktu, permohonan.dari_tgl, permohonan.sampai_tgl, permohonan.nama_pekerjaan, permohonan.nilai_proyek, permohonan.file_dokumen, permohonan.tgl_dokumen, permohonan.no_dokumen, perusahaan.kd_perusahaan,jenis_permohonan.kd_jp, instansi.id_instansi,instansi.pemilik_proyek, perusahaan.nama_perusahaan,permohonan.sertifikat, pejabat.kd_pejabat, pejabat.nama_pejabat, jenis_jaminan.kd_jenis, jenis_jaminan.jenis_jaminan from jenis_jaminan join permohonan on jenis_jaminan.kd_jenis=permohonan.id_persen join perusahaan on perusahaan.kd_perusahaan=permohonan.kd_perusahaan join pejabat on pejabat.kd_pejabat=permohonan.kd_pejabat join jenis_permohonan on jenis_permohonan.kd_jp=permohonan.kd_jp join instansi on instansi.id_instansi=permohonan.id_instansi join kabupaten on kabupaten.kd_kabupaten=permohonan.kd_kabupaten join agent on agent.kd_agent=permohonan.kd_agent join dokumen on dokumen.kd_dokumen=permohonan.kd_dokumen where permohonan.id_permohonan='$id_permohonan'")->row_array();
+		return $query = $this->db->query("SELECT permohonan.tgl_permohonan,permohonan.tgl_komitmen,permohonan.catatan_dokumen,permohonan.status,perusahaan.jab_pimpinan, permohonan.pemilik, permohonan.alamat_perusahaan, permohonan.id_permohonan,permohonan.no_permohonan,kabupaten.kd_kabupaten,dokumen.kd_dokumen,perusahaan.nama_perusahaan,agent.kd_agent, perusahaan.no_telpon, perusahaan.foto_ttd, perusahaan.no_fax,perusahaan.email, perusahaan.alamat,perusahaan.nama_direktur, permohonan.no_urut, permohonan.persen,jenis_permohonan.jenis_permohonan, permohonan.nilai_jaminan,instansi.instansi,instansi.alamat_instansi,kabupaten.kabupaten,agent.nama_agent,dokumen.dokumen, permohonan.jangka_waktu, permohonan.dari_tgl, permohonan.sampai_tgl, permohonan.nama_pekerjaan, permohonan.nilai_proyek, permohonan.file_dokumen, permohonan.tgl_dokumen, permohonan.no_dokumen, perusahaan.kd_perusahaan,jenis_permohonan.kd_jp, instansi.id_instansi,instansi.pemilik_proyek, perusahaan.nama_perusahaan,permohonan.sertifikat, pejabat.kd_pejabat, pejabat.nama_pejabat, jenis_jaminan.kd_jenis, jenis_jaminan.jenis_jaminan from jenis_jaminan join permohonan on jenis_jaminan.kd_jenis=permohonan.id_persen join perusahaan on perusahaan.kd_perusahaan=permohonan.kd_perusahaan join pejabat on pejabat.kd_pejabat=permohonan.kd_pejabat join jenis_permohonan on jenis_permohonan.kd_jp=permohonan.kd_jp join instansi on instansi.id_instansi=permohonan.id_instansi join kabupaten on kabupaten.kd_kabupaten=permohonan.kd_kabupaten join agent on agent.kd_agent=permohonan.kd_agent join dokumen on dokumen.kd_dokumen=permohonan.kd_dokumen where permohonan.id_permohonan='$id_permohonan'")->row_array();
 	}
 
 	public function lihat_permohonan_pjbt($kd_pejabat)
@@ -793,6 +815,23 @@ class M_mada extends CI_Model
 
 	public function proses_tambah_permohonan()
 	{
+		// update data perusahaan
+
+		$data2 = array(
+			'alamat' => $this->input->post('alamat_perusahaan'),
+		);
+
+		$this->db->where('kd_perusahaan', $this->input->post('kd_perusahaan'));
+		$this->db->update('perusahaan', $data2);
+
+		$data3 = array(
+			'alamat_instansi' => $this->input->post('alamat_instansi'),
+			'pemilik_proyek' => $this->input->post('pemilik'),
+		);
+
+		$this->db->where('id_instansi', $this->input->post('id_instansi'));
+		$this->db->update('instansi', $data3);
+
 		$config = array(
 			'upload_path' => './file/Permohonan/',
 			'allowed_types' => 'jpg|png|jpeg|pdf'
@@ -806,9 +845,6 @@ class M_mada extends CI_Model
 			$result = $this->upload->data();
 			$file_dokumen = $result['file_name'];
 		}
-
-
-
 
 		$no_urut = substr($_POST['no_permohonan'], 0, 4);
 		$tg = str_replace("/","-", $_POST['tgl_sampai']);
@@ -844,28 +880,7 @@ class M_mada extends CI_Model
 			'pemilik' => $_POST['pemilik'],
 
 		);
-		// echo "<pre>";
-		// print_r($data);
-		// echo "</pre>";
 		$this->db->insert('permohonan', $data);
-
-		// $sql = $this->db->query("SELECT id_permohonan from permohonan order by id_permohonan DESC limit 1")->row_array();
-
-		// $id_permohonan = $sql['id_permohonan'];
-
-		// $jangka = $_POST['jangka_waktu'] - 1;
-
-		// $query = $this->db->query("SELECT date_add(dari_tgl, interval " . $jangka . " day ) as sampai from permohonan where id_permohonan='$id_permohonan'  ")->row_array();
-		// $tgl_sampai = $query['sampai'];
-
-		// $data1 = array(
-		// 	'sampai_tgl' => $tgl_sampai
-		// );
-
-		// //print_r($data1);
-
-		// $this->db->where('id_permohonan', $id_permohonan);
-		// $this->db->update('permohonan', $data1);
 	}
 
 	public function proses_edit_permohonan()

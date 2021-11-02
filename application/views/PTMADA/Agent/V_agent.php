@@ -49,7 +49,6 @@
                     <td><?php echo $dt['alamat']; ?></td>
                     <td><?php echo $dt['email']; ?></td>
                     <td><?php echo $dt['no_telp']; ?></td>
-                    <!-- <td><?php echo $dt['instansi']; ?></td> -->
                     <td style="text-align: center;">
                       <!-- Tombol Edit -->
                         <a href="<?php echo site_url('Ptmada/edit_agent/' . $dt['kd_agent']); ?>">

@@ -400,6 +400,26 @@
 												</td>
 											</tr>
 
+											<tr>
+												<td>15.</td>
+												<td>Scan atau Foto TTD Pimpinan Perusahaan</td>
+												<td>
+													<div class="">
+														<?php echo $dt['foto_ttd'] ?>
+													</div>
+												</td>
+
+												<td>
+													<?php if($dt['foto_ttd']!="Tidak Ada Data"){ ?>
+													<a href="<?php echo base_url() ?>file/persyaratan/<?php echo $dt['foto_ttd']; ?>" title="Open File" target="_blank">
+														<button class="btn btn-info btn-sm" data-toggle="tooltip" data-placement="auto" title="Lihat File">
+								                            <i class="fa fa-eye"></i>
+								                        </button>
+													</a>
+													<?php }?>
+												</td>
+											</tr>
+
 
 										</table>
 

@@ -29,7 +29,6 @@
                   <th style="text-align: center;">Nama Perusahaan</th>
                   <th style="text-align: center;">Nama Pimpinan</th>
                   <th style="text-align: center;">Alamat</th>
-                  <th style="text-align: center;">View</th>
                   <th style="text-align: center;">Edit</th>
                   <th style="text-align: center;">Hapus</th>
                 </tr>
@@ -41,17 +40,14 @@
                 ?>
                   <tr>
                     <td style="text-align: center;"><?php echo $no++; ?></td>
-                    <td><?php echo $dt['nama_perusahaan']; ?></td>
+                    <td>
+                      <a href="<?php echo base_url('Ptmada/detail_perusahaan/' . $dt['kd_perusahaan']) ?>" data-toggle="tooltip" data-placement="auto" title="Lihat Data : <?php echo $dt['nama_perusahaan'] ?>">
+                        <?php echo $dt['nama_perusahaan']; ?>
+                      </a>
+                    </td>
                     <td><?php echo $dt['nama_direktur']; ?></td>
                     <td><?php echo $dt['alamat']; ?></td>
-                    <td style="text-align: center;">
-                      <!-- Tombol Lihat -->
-                      <a href="<?php echo base_url('Ptmada/detail_perusahaan/' . $dt['kd_perusahaan']) ?>">
-                          <button class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="auto" title="Lihat Data : <?php echo $dt['nama_perusahaan'] ?>">
-                            <i class="fa fa-eye"></i>
-                          </button>
-                        </a>
-                    </td>
+
                     <td style="text-align: center;">
                       <!-- Tombol Edit -->
                         <a href="<?php echo site_url('Ptmada/edit_perusahaan/' . $dt['kd_perusahaan']); ?>">

@@ -57,6 +57,12 @@
                     <label for="exampleInputPassword1">Alamat</label>
                     <textarea name="alamat" value="<?= set_value('alamat')?>" class="form-control" placeholder="Alamat"  autocomplete="off"></textarea>
                   </div>
+
+                  <div class="form-group">
+                    <label for="exampleInputFile">Scan atau Foto TTD Pimpinan Perusahaan</label>
+                    <input type="file" name="foto_ttd" accept='image/*'>
+                  </div>
+
                   <div class="form-group">
                     <label for="exampleInputPassword1">Pejabat Penghubung</label>
                     <select class="form-control selectpicker show-tick <?= form_error('kd_pejabat') ? 'has-error' : null ?>" name="kd_pejabat"  data-live-search="true" required="" data-style="btn-primary" title="Pilih Pejabat" data-size="5">
@@ -79,6 +85,11 @@
                     </select>
                   </div>
                   <span style="color: red"><?= form_error('kd_agent') ?></span>
+                  
+
+                </div>
+                <!-- /.col -->
+                <div class="col-md-6">
                   <div class="form-group">
                     <label for="exampleInputFile">Company Profile</label>
                     <input type="file" name="company_profil">
@@ -87,11 +98,6 @@
                     <label for="exampleInputFile">Akta Pendirian</label>
                     <input type="file" name="akta_pendirian">
                   </div>
-
-                </div>
-                <!-- /.col -->
-                <div class="col-md-6">
-
                   <div class="form-group">
                     <label for="exampleInputFile">SPKMGR</label>
                     <input type="file" name="spkmgr">

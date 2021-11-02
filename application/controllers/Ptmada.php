@@ -10,6 +10,8 @@ class Ptmada extends CI_Controller
         $this->load->model('Kode');
         $this->load->helper('nominal_helper.php');
         $this->load->helper('tanggal_helper.php');
+        $this->load->library('dompdf_gen');
+
 
         $this->load->library('form_validation');
 
@@ -153,6 +155,7 @@ class Ptmada extends CI_Controller
         $this->form_validation->set_rules('kd_pejabat','Pejabat Penghubung','required');
         $this->form_validation->set_rules('kd_agent','Data Agent','required');
         $this->form_validation->set_message('required', '%s Tidak Boleh Kosong');
+
         if ($this->form_validation->run() == FALSE) {
             $data['kode'] = $this->Kode->kd_perusahaan();
             $data['pejabat'] = $this->M_mada->lihat_pejabat();
@@ -254,8 +257,6 @@ class Ptmada extends CI_Controller
         $this->session->set_flashdata('hasil','swalberhasilhapus');
         echo "<script language='javascript'> document.location='" . base_url('Ptmada/lihat_instansi') . "';</script>";
     }
-
-
 
 
     public function lihat_pejabat()
@@ -565,14 +566,32 @@ class Ptmada extends CI_Controller
 
     public function cetak_permohonan($id_permohonan)
     {
+
+        // $tgl = date('Y-m-d');
+        // $data= $this->M_mada->get_permohonan($id_permohonan);
+        // $data['dt'] = $this->M_mada->get_permohonan($id_permohonan);
+
+        // $nama_dokumen = $data['no_permohonan'];
+        // $mpdf = new \Mpdf\Mpdf(['utf-8', 'A4']);
+        // $html = $this->load->view('PTMADA/Permohonan/V_cetak_permohonan',$data,true);
+        // $mpdf->WriteHTML($html);
+        // $mpdf->Output($nama_dokumen.".pdf" ,'I');
+
         $tgl = date('Y-m-d');
+        $data = array();
+
         $data= $this->M_mada->get_permohonan($id_permohonan);
-        $data['dt'] = $this->M_mada->get_permohonan($id_permohonan);
         $nama_dokumen = $data['no_permohonan'];
-        $mpdf = new \Mpdf\Mpdf(['utf-8', 'A4']);
-        $html = $this->load->view('PTMADA/Permohonan/V_cetak_permohonan',$data,true);
-        $mpdf->WriteHTML($html);
-        $mpdf->Output($nama_dokumen.".pdf" ,'I');
+
+        $data['dt'] = $this->M_mada->get_permohonan($id_permohonan);
+        $this->load->view('PTMADA/Permohonan/V_cetak_permohonan',$data);
+
+        $html = $this->output->get_output();
+        $this->load->library('dompdf_gen');
+        $this->dompdf->load_html($html);
+        $this->dompdf->set_paper('A4', 'potrait');
+        $this->dompdf->render();
+        $this->dompdf->stream($nama_dokumen.".pdf", array("Attachment"=>0));
     }
 
     public function lihat_agent()

@@ -27,9 +27,8 @@
                 <tr>
                   <th style="text-align: center;">No</th>
                   <th style="text-align: center;">Nama Pejabat</th>
-                  <th style="text-align: center;">Alamat</th>
-                  <th style="text-align: center;">No telp</th>
                   <th style="text-align: center;">Instansi</th>
+                  <th style="text-align: center;">No telp</th>
                   <th style="text-align: center; width: 40px;">Aksi</th>
                 </tr>
               </thead>
@@ -40,11 +39,9 @@
                 ?>
                   <tr>
                     <td style="text-align: center;"><?php echo $no++; ?></td>
-                    <!-- <td><?php echo $dt['nip']; ?></td> -->
                     <td><a href="<?php echo site_url('Ptmada/lihat_detail_pejabat/' . $dt['kd_pejabat']); ?>"><?php echo $dt['nama_pejabat']; ?></a></td>
-                    <td><?php echo $dt['alamat']; ?></td>
-                    <td><?php echo $dt['no_telp']; ?></td>
                     <td><?php echo $dt['instansi']; ?></td>
+                    <td><?php echo $dt['no_telp']; ?></td>
                     <td>
                         <!-- Tombol Edit -->
                         <a href="<?php echo site_url('Ptmada/edit_pejabat/' . $dt['kd_pejabat']); ?>">

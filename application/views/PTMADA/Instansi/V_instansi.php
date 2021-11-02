@@ -25,7 +25,7 @@
             <table id="example1" class="table table-bordered table-hover">
               <thead>
                 <tr>
-                  <th style="text-align: center;">ID</th>
+                  <th style="text-align: center;">No</th>
                   <th style="text-align: center;">Nama Instansi</th>                  
                   <th style="text-align: center;">Pemilik Proyek</th>
                   <th style="text-align: center;">Alamat Instansi</th>

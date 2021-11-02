@@ -58,6 +58,18 @@
                   </div>
 
                   <div class="form-group">
+                    <label for="exampleInputFile">Scan atau Foto TTD Pimpinan Perusahaan</label>
+                    <input type="text" name="foto_ttd_lama" class="form-control" value="<?php echo $data['foto_ttd'] ?>" readonly>
+
+                    <div class="form-check">
+                      <input class="form-check-input" name="hapus_ttd" type="checkbox" value="Hapus File">
+                      <label class="form-check-label">Hapus File</label>
+                    </div>
+
+                    <input type="file" name="foto_ttd" accept='image/*'>
+                  </div>
+
+                  <div class="form-group">
                     <label for="exampleInputPassword1">Pejabat Penghubung</label>
                     <select class="form-control selectpicker show-tick <?= form_error('kd_pejabat') ? 'has-error' : null ?>" name="kd_pejabat" data-live-search="true" data-style="btn-primary" data-size="5">
                       <option value="<?php echo $data['kd_pejabat'] ?>"><?php echo $data['nama_pejabat'] ?></option>
@@ -84,6 +96,11 @@
                     </select>
                   </div>
                   <span style="color: red"><?= form_error('kd_agent') ?></span>
+
+                </div>
+                <!-- /.col -->
+                <div class="col-md-6">
+
                   <div class="form-group">
                     <label for="exampleInputFile">Company Profile</label>
                     <input type="text" name="company_profile_lama" class="form-control" value="<?php echo $data['company_profile'] ?>" readonly>
@@ -127,11 +144,6 @@
                     </div>
                     <input type="file" name="stdp">
                   </div>
-                </div>
-                <!-- /.col -->
-                <div class="col-md-6">
-
-
                   
                   <div class="form-group">
                     <label for="exampleInputFile">SIUP</label>
