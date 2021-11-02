@@ -93,19 +93,19 @@
                   </div>
                   <div class="form-group">
                     <label for="exampleInputEmail1">Nama Perusahaan</label>
-                    <select onchange="Value(this.value)" class="form-control select2 <?= form_error('kd_perusahaan') ? 'is-invalid' : null ?>" name="kd_perusahaan" style="width: 100%;">
+                    <select onchange="Value(this.value)" class="form-control selectpicker show-tick <?= form_error('kd_perusahaan') ? 'is-invalid' : null ?>" name="kd_perusahaan" data-live-search="true" required="" data-style="btn-primary">
                       <option selected value="<?php echo $permohonan['kd_perusahaan'] ?>"><?php echo $permohonan['nama_perusahaan'] ?></option>
                       <?php 
-                       $js = "var prd = new Array();\n";
+                      $js = "var prd = new Array();\n";
                       foreach ($perusahaan as $key) {
                         if ($permohonan['kd_perusahaan'] != $key['kd_perusahaan']) {
-                          
-                      ?>
-                        <option value="<?php echo $key['kd_perusahaan'] ?>" <?php if ($permohonan['kd_perusahaan'] == $key['kd_perusahaan']) { echo "selected='selected'"; } ?>><?php echo $key['nama_perusahaan'] ?></option>
-                      <?php
-                      $js.= "prd['" . $key['kd_perusahaan'] . "'] = {alamat_perusahaan:'".$key['alamat']."'};\n";
-                       }
-                       } ?>
+
+                          ?>
+                          <option value="<?php echo $key['kd_perusahaan'] ?>" <?php if ($permohonan['kd_perusahaan'] == $key['kd_perusahaan']) { echo "selected='selected'"; } ?>><?php echo $key['nama_perusahaan'] ?></option>
+                          <?php
+                          $js.= "prd['" . str_replace(array("\r","\n"),"",addslashes($key['kd_perusahaan'])) . "'] = {alamat_perusahaan:'".str_replace(array("\r","\n"),"",addslashes($key['alamat']))."'};\n";
+                        }
+                      } ?>
 
                     </select>
                   </div>
@@ -116,7 +116,7 @@
                   </div>
                   <div class="form-group">
                     <label for="exampleInputEmail1">Nama Pejabat</label>
-                    <select class="form-control select2 <?= form_error('kd_pejabat') ? 'is-invalid' : null ?>" name="kd_pejabat" style="width: 100%;">
+                    <select class="form-control selectpicker show-tick <?= form_error('kd_pejabat') ? 'is-invalid' : null ?>" name="kd_pejabat" data-live-search="true" data-style="btn-primary">
                       <option selected="" value="<?php echo $permohonan['kd_pejabat'] ?>"><?php echo $permohonan['nama_pejabat'] ?></option>
                       <?php foreach ($pejabat as $dt) { 
                         if ($permohonan['kd_pejabat'] != $dt['kd_pejabat']) {
@@ -127,84 +127,71 @@
                     </select>
                   </div>
                   <span style="color: red"><?= form_error('kd_pejabat') ?></span>
-                  <div class="form-group">
-                    <label for="exampleInputPassword1">Jenis Jaminan</label>
-                    <select class="form-control select2 <?= form_error('kd_jenis') ? 'is-invalid' : null ?>" id="kd_jenis" name="kd_jenis" style="width: 100%;">
-                      <option value="<?php echo $permohonan['kd_jenis'] ?>"><?php echo $permohonan['jenis_jaminan'] ?></option>
-                      <?php foreach ($jenis as $dt) { 
-                        if ($permohonan['kd_jenis'] != $dt['kd_jenis']) {
-                          
-                      ?>
-                        <option value="<?php echo $dt['kd_jenis'] ?>" <?php if ($permohonan['kd_jenis'] == $dt['kd_jenis']) {echo "selected='selected'"; } ?>><?php echo $dt['jenis_jaminan'] ?></option>
-                        <?php }} ?>
 
-                    </select>
-                  </div>
-                  <span style="color: red"><?= form_error('kd_jenis') ?></span>
-                  <!-- <div class="form-group">
-                    <label for="exampleInputPassword1">Persen</label>
-                    <select class="form-control select2" id="id_persen" name="persen" style="width: 100%;" onchange="get()" onclick="get()">
-                      <option value="<?php echo $permohonan['persen'] ?>"><?php echo $permohonan['persen'] ?> %</option>
-                    </select>
-                  </div> -->
-                  <div class="form-group">
-                     <label for="exampleInputPassword1">Persentase Jaminan</label>
-                    <input type="number" id="text" value="<?php echo $permohonan['persen'] ?>" name="persen" class="form-control" placeholder="persen" onkeyup="get()">
-                  </div>
-                  <!-- <div class="form-group">
-                    <input type="hidden" id="text" name="persen" class="form-control" placeholder="persen" onkeyup="get()" required="" >
-                  </div> -->
-                  <div class="form-group">
-                    <div>
-                      <!-- <center>
-                        <h3 for="exampleInputPassword1">Jangka waktu</h3>
-                      </center> -->
-                      <!-- <div class="input-group date">
-                            <div class="input-group-addon">
-                              <i class="fa fa-calendar"></i>
-                            </div>
-                            <input type="date" class="form-control pull-right">
-                          </div> -->
+                  <div class="row">
+                    <div class="col-md-6">
+                      <?php $kd_jenis =set_value('kd_jenis'); ?>
+                      <div class="form-group">
+                        <label for="exampleInputPassword1">Jenis Jaminan</label>
+                        <select class="form-control selectpicker show-tick <?= form_error('kd_jenis') ? 'is-invalid' : null ?>" id="kd_jenis" name="kd_jenis" data-live-search="true" data-style="btn-primary">
+                          <option value="<?php echo $permohonan['kd_jenis'] ?>"><?php echo $permohonan['jenis_jaminan'] ?></option>
+                          <?php foreach ($jenis as $dt) { 
+                            if ($permohonan['kd_jenis'] != $dt['kd_jenis']) {
+
+                              ?>
+                              <option value="<?php echo $dt['kd_jenis'] ?>" <?php if ($permohonan['kd_jenis'] == $dt['kd_jenis']) {echo "selected='selected'"; } ?>><?php echo $dt['jenis_jaminan'] ?></option>
+                            <?php }} ?>
+
+                          </select>
+                        </div>
                     </div>
-                    <div style="margin-left:0px;display: flex;">
-                      <div class="form-group">
-                        <label for="exampleInputPassword1">Tanggal Mulai Proyek</label>
-                        <div class="input-group date">
+
+                    <div class="col-md-6">
+                      <?php $persen =set_value('persen'); ?>
+
+                     <div class="form-group"> 
+                        <label for="exampleInputPassword1">Persentase Jaminan</label>
+                        <div class="input-group">
+                          <input type="text" maxlength="13" onkeypress="return hanyaAngka(event)" id="text" name="persen" class="form-control" value="<?php echo $permohonan['persen'] ?>" placeholder="persen" onkeyup="get()">
                           <div class="input-group-addon">
-                            <i class="fa fa-calendar"></i>
+                            <b>%</b>
                           </div>
-                          <input type="date" name="dari_tgl" id="tgl1" style="width: 100%;padding-right: 0px;padding-left: 0px;" required class="form-control" onchange="CalcDiff()" value="<?php echo $permohonan['dari_tgl'] ?>" >
                         </div>
                       </div>
-                      <div class="form-group" style="margin-left: 10px;">
-                        <label for="exampleInputPassword1">Jumlah Hari Proyek</label>
-                        <div class="input-group date">
-                          <!-- <div class="input-group-addon">
-                            <i class="fa fa-calendar"></i>
-                          </div> -->
-                          <input type="text" style="width: 80%;padding-right: 0px;padding-left: 0px;" name="jangka_waktu" required onkeyup="isi_otomatis()" value="<?php echo $permohonan['jangka_waktu'] ?>" id="jml" class="form-control">
-                        </div>
-                      </div>
+                   </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-4">
                       <div class="form-group">
+                        <label for="exampleInputPassword1">Tanggal Mulai</label>
+                        <div class="input-group">
+                          <input type="date" name="dari_tgl" required="" id="tgl1" onchange="CalcDiff()" value="<?php echo $permohonan['dari_tgl'] ?>" class="form-control">
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <label for="exampleInputPassword1">Jumlah Hari Proyek</label>
+                          <input type="text" name="jangka_waktu" onkeyup="isi_otomatis()" required="" value="<?php echo $permohonan['jangka_waktu'] ?>" id="jml" class="form-control">
+                      </div>
+                    </div>
+
+                    <div class="col-md-4">
+                      <div class="form-group" > 
                         <label for="exampleInputPassword1">Tanggal Selesai</label>
                         <div class="input-group date">
-                          <div class="input-group-addon">
-                            <i class="fa fa-calendar"></i>
-                          </div>
-                          <input type="text" style="width: 100%;padding-left: 0px;padding-right: 0px;" name="tgl_sampai" value="<?php echo $permohonan['sampai_tgl'] ?>" readonly="" required="" id="tgl_sampai" class="form-control">
+                          <input type="text" name="tgl_sampai" readonly="" value="<?php echo $permohonan['sampai_tgl'] ?>" required="" id="tgl_sampai" class="form-control">
                         </div>
                       </div>
-
                     </div>
 
                   </div>
-                  <!-- <div class="form-group">
-                    <label for="exampleInputPassword1">Jumlah Hari</label>
-                    <input type="text" id="selisih" name="jangka_waktu" class="form-control" placeholder="Jumlah Hari" readonly="" required="" value="<?php echo $permohonan['jangka_waktu'] ?>">
-                  </div> -->
+
                   <div class="form-group">
                     <label for="exampleInputPassword1">Mohon Terbitkan</label>
-                    <select class="form-control select2 <?= form_error('kd_jp') ? 'is-invalid' : null ?>" id="terbitkan" name="kd_jp" style="width: 100%;">
+                    <select class="form-control selectpicker show-tick <?= form_error('kd_jp') ? 'is-invalid' : null ?>" id="terbitkan" name="kd_jp" data-live-search="true" data-style="btn-primary">
                       <option value="<?php echo $permohonan['kd_jp'] ?>"><?php echo $permohonan['jenis_permohonan'] ?></option>
                       <?php 
                         foreach ($mohonan as $ue) {
@@ -217,7 +204,7 @@
                   <span style="color: red"><?= form_error('kd_jp') ?></span>
                   <div class="form-group">
                     <label for="exampleInputPassword1">Nama Instansi</label>
-                    <select class="form-control select2 <?= form_error('id_instansi') ? 'is-invalid' : null ?>"  name="id_instansi" id="id_instansi" onchange="changeValue(this.value)" style="width: 100%;">
+                    <select class="form-control selectpicker show-tick <?= form_error('id_instansi') ? 'is-invalid' : null ?>"  name="id_instansi" id="id_instansi" onchange="changeValue(this.value)" data-live-search="true" required="" data-style="btn-primary">
                       <option value="<?php echo $permohonan['id_instansi'] ?>"><?php echo $permohonan['instansi'];
                       $jsArray = "var prdName = new Array();\n";  
                       $jsArray .= "prdName['" . $permohonan['id_instansi'] . "'] = {pemilik_proyek:'" .$permohonan['pemilik_proyek']. "',alamat_instansi:'".$permohonan['alamat_instansi']."'};\n";
@@ -231,7 +218,7 @@
                       ?>
                       <option value="<?php echo $e['id_instansi'] ?>"><?php echo $e['instansi'] ?></option>
                     <?php 
-                      $jsArray .= "prdName['" . $e['id_instansi'] . "'] = {pemilik_proyek:'" .$e['pemilik_proyek']. "',alamat_instansi:'".$e['alamat_instansi']."'};\n";
+                      $jsArray .= "prdName['" . $e['id_instansi'] . "'] = {pemilik_proyek:'" .str_replace(array("\r","\n"),"",addslashes($e['pemilik_proyek'])). "',alamat_instansi:'".str_replace(array("\r","\n"),"",addslashes($e['alamat_instansi']))."'};\n";
                     } }?>
                     </select>
                   </div>
@@ -256,7 +243,7 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="exampleInputPassword1">Lokasi Proyek</label>
-                    <select class="form-control select2 <?= form_error('kd_kabupaten') ? 'is-invalid' : null ?>" id="lokasi" name="kd_kabupaten" style="width: 100%;">
+                    <select class="form-control selectpicker show-tick <?= form_error('kd_kabupaten') ? 'is-invalid' : null ?>" id="lokasi" name="kd_kabupaten" data-live-search="true" data-style="btn-primary">
                       <option value="<?php echo $permohonan['kd_kabupaten'] ?>"><?php echo $permohonan['kabupaten'] ?></option>
                       <?php 
                         foreach ($kabupaten as $u) {
@@ -277,7 +264,7 @@
                   </div>
                   <div class="form-group">
                     <label for="exampleInputPassword1">Dokumen Pendukung</label>
-                    <select class="form-control select2 <?= form_error('kd_dokumen') ? 'is-invalid' : null ?>" name="kd_dokumen" style="width: 100%;">
+                    <select class="form-control selectpicker show-tick <?= form_error('kd_dokumen') ? 'is-invalid' : null ?>" name="kd_dokumen" data-live-search="true" data-style="btn-primary">
                       <option selected="" disabled="">Pilih Dokumen Pendukung</option>
                       <?php foreach ($dokumen as $dt) {
                       ?>
@@ -326,7 +313,7 @@
                   </div>
                   <div class="form-group">
                     <label for="exampleInputPassword1">Status Dokumen Pendunkung</label>
-                    <select class="form-control select2 <?= form_error('status') ? 'is-invalid' : null ?>" name="status" style="width: 100%;">
+                    <select class="form-control selectpicker show-tick <?= form_error('status') ? 'is-invalid' : null ?>" name="status" data-live-search="true" data-style="btn-primary">
                       <option selected="" disabled="">Pilih Status</option>
                       <option value="Lengkap" <?php if ($permohonan['status'] =='Lengkap') { echo "selected='selected'"; } ?>>Lengkap</option>
                       <option value="Tidak Lengkap" <?php if ($permohonan['status'] =='Tidak Lengkap') { echo "selected='selected'"; } ?>>Tidak Lengkap</option>
@@ -335,7 +322,7 @@
                   <span style="color: red"><?= form_error('status') ?></span>
                   <div class="form-group">
                     <label for="exampleInputPassword1">Agent</label>
-                    <select class="form-control select2 <?= form_error('kd_agent') ? 'is-invalid' : null ?>" name="kd_agent" style="width: 100%;">
+                    <select class="form-control selectpicker show-tick <?= form_error('kd_agent') ? 'is-invalid' : null ?>" name="kd_agent" data-live-search="true" data-style="btn-primary">
                       <option selected="" disabled="">Pilih Agent</option>
                       <?php foreach ($agent as $dt) {
                       ?>
@@ -400,33 +387,39 @@
 </div>
 <!-- /.content-wrapper -->
 <script type="text/javascript">    
-    <?php echo $js; ?>  
-    function Value(x){  
+  <?php echo $js; ?>  
+  function Value(x){  
     document.getElementById('alamat_perusahaan').value = prd[x].alamat_perusahaan;   
-    };  
+  };  
 </script> 
 
 <script type="text/javascript">    
-    <?php echo $jsArray; ?>  
-    function changeValue(x){  
+  <?php echo $jsArray; ?>  
+  function changeValue(x){  
     document.getElementById('pemilik_proyek').value = prdName[x].pemilik_proyek;
     document.getElementById('alamat_instansi').value = prdName[x].alamat_instansi;   
-    };  
+  };  
 </script>
 
 <script type="text/javascript">
-                    function isi_otomatis(){
-                      var a = $("#tgl1").val();
-                      var b = $("#jml").val();
+  function isi_otomatis(){
+    var a = $("#tgl1").val();
+    var b = $("#jml").val();
+    $.ajax({
+     type    : 'POST',
+     url: '<?php echo base_url('Ptmada/ambil_data5') ?>',
+     data:"dari_tgl=" + a + "&jml="+ b,
+   }).success(function (data) {
+    var json = data;
+    $('#tgl_sampai').val(json);
+  });
+ }
+</script>
 
-
-                        $.ajax({
-                             type    : 'POST',
-                            url: '<?php echo base_url('Ptmada/ambil_data5') ?>',
-                            data:"dari_tgl=" + a + "&jml="+ b,
-                        }).success(function (data) {
-                            var json = data;
-                            $('#tgl_sampai').val(json);
-                        });
-                    }
-                </script> 
+<script type="text/javascript">
+  $(function () {
+    $('.datetimepicker-input').datetimepicker({
+      format: 'L'
+    });
+  });
+</script>

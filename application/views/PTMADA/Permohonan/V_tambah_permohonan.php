@@ -300,7 +300,7 @@
                         <div class="input-group-addon">
                           <i class="fa fa-calendar"></i>
                         </div>
-                        <input type="date" value="<?= set_value('tgl_dokumen')?>" name="tgl_dokumen" required="" class="form-control pull-right">
+                        <input type="text" value="<?= set_value('tgl_dokumen')?>" name="tgl_dokumen" required="" class="form-control datetimepicker-input">
                       </div>
                     </div>
                   </div>
@@ -311,7 +311,7 @@
                         <div class="input-group-addon">
                           <i class="fa fa-calendar"></i>
                         </div>
-                        <input type="date" value="<?= set_value('tgl_komitmen')?>" name="tgl_komitmen" class="form-control pull-right">
+                        <input type="text" value="<?= set_value('tgl_komitmen')?>" name="tgl_komitmen" class="form-control datetimepicker-input">
                       </div>
                     </div>
                   </div>
