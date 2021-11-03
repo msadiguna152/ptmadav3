@@ -30,9 +30,9 @@
     var nilai_proyek = document.getElementById('nilai_proyek').value;
 
 
-    var hasil = nilai_proyek * (persen / 100);
+    // var hasil = parseInt(nilai_proyek, 10) * (persen / 100);
 
-    var nilai_jaminan = document.getElementById('nilai_jaminan').value = hasil;
+    var nilai_jaminan = document.getElementById('nilai_jaminan').value = parseInt(nilai_proyek);
 
   }
 
@@ -224,7 +224,7 @@
                           <option value="<?php echo $key2['id_instansi'] ?>" selected  >
                             <?php echo $key2['nama_instansi'] ?></option>
                         <?php } else { ?>
-                          <option value="<?php echo $key2['id_instansi'] ?>" ><?php echo $key2['instansi'] ?></option>
+                          <option value="<?php echo $key2['id_instansi'] ?>" ><?php echo substr($key2['instansi'],0,'100') ?></option>
                         <?php } ?>
                         
                       <?php 
@@ -418,5 +418,33 @@
         format: 'L'
       });
     });
+  </script>
+
+  <script type="text/javascript">
+
+    var rupiah = document.getElementById('nilai_proyek');
+    rupiah.addEventListener('keyup', function(e){
+      // tambahkan 'Rp.' pada saat form di ketik
+      // gunakan fungsi formatRupiah() untuk mengubah angka yang di ketik menjadi format angka
+      rupiah.value = formatRupiah(this.value, 'Rp. ');
+    });
+
+    /* Fungsi formatRupiah */
+    function formatRupiah(angka, prefix){
+      var number_string = angka.replace(/[^,\d]/g, '').toString(),
+      split= number_string.split(','),
+      sisa= split[0].length % 3,
+      rupiah= split[0].substr(0, sisa),
+      ribuan= split[0].substr(sisa).match(/\d{3}/gi);
+
+      // tambahkan titik jika yang di input sudah menjadi angka ribuan
+      if(ribuan){
+        separator = sisa ? '.' : '';
+        rupiah += separator + ribuan.join('.');
+      }
+
+      rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+      return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
+    }
   </script>
 

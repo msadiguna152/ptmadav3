@@ -11,8 +11,6 @@ class Ptmada extends CI_Controller
         $this->load->helper('nominal_helper.php');
         $this->load->helper('tanggal_helper.php');
         $this->load->library('dompdf_gen');
-
-
         $this->load->library('form_validation');
 
         if($this->session->userdata('status') != 'Login'){
