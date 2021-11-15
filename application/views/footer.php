@@ -3,26 +3,26 @@
     <!-- <div class="pull-right hidden-xs">
       <b>Version</b> 2.4.13
     </div> -->
-    <strong>Copyright &copy; 2019 <a href="https://adminlte.io">PT MADA</a>.</strong> All rights
+    <strong>Copyright &copy; 2019 <a href="">PT MADA</a>.</strong> All rights
     reserved.
   </footer>
-        <span disable=""
+        <span hidden=""
         <?php if ($this->session->flashdata('hasil')=="swalberhasilsimpan") { echo 'class="swalberhasilsimpan"';}?>>
         </span>
-        <span disable=""
+        <span hidden=""
         <?php if ($this->session->flashdata('hasil')=="swalberhasilhapus") { echo 'class="swalberhasilhapus"';}?>>
         </span>
-        <span disable=""
+        <span hidden=""
         <?php if ($this->session->flashdata('hasil')=="swalberhasilubah") { echo 'class="swalberhasilubah"';};?>>
         </span>
 
-        <span disable=""
+        <span hidden=""
         <?php if ($this->session->flashdata('hasil')=="swalgagallsimpan") { echo 'class="swalgagallsimpan"';}?>>
         </span>
-        <span disable=""
+        <span hidden=""
         <?php if ($this->session->flashdata('hasil')=="swalgagalhapus") { echo 'class="swalgagalhapus"';}?>>
         </span>
-        <span disable=""
+        <span hidden=""
         <?php if ($this->session->flashdata('hasil')=="swalgagalubah") { echo 'class="swalgagalubah"';};?>>
         </span>
   </div>
@@ -49,8 +49,8 @@
   <!-- page script -->
   
   <!-- Latest compiled and minified JavaScript -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script> -->
 
   <!-- SweetAlert2 -->
   <script src="<?php echo base_url() ?>assets/plugins/sweetalert2/sweetalert2.min.js"></script>

@@ -198,7 +198,7 @@ class M_mada extends CI_Model
 
 	public function get_perusahaan($kd_perusahaan)
 	{
-		$query = $this->db->query("SELECT perusahaan.foto_ttd, perusahaan.akta_perubahan_perusahaan, perusahaan.tanda_keanggotaan_asosiasi, perusahaan.kd_perusahaan, perusahaan.nama_perusahaan, perusahaan.nama_direktur, perusahaan.jab_pimpinan, perusahaan.email, perusahaan.no_fax, perusahaan.no_telpon, perusahaan.alamat, perusahaan.company_profile, perusahaan.akta_pendirian, perusahaan.spkmgr, perusahaan.stdp, perusahaan.siup, perusahaan.sktu, perusahaan.siujk, perusahaan.spt, perusahaan.npwp, perusahaan.ktp, perusahaan.laporan_keuangan, perusahaan.proyek_sebelumnya, perusahaan.npwp_file, agent.kd_agent, agent.nama_agent, pejabat.kd_pejabat, pejabat.nama_pejabat from agent join perusahaan on agent.kd_agent=perusahaan.kd_agent join pejabat on pejabat.kd_pejabat=perusahaan.kd_pejabat where perusahaan.kd_perusahaan='$kd_perusahaan'");
+		$query = $this->db->query("SELECT perusahaan.foto_ttd, perusahaan.tgl_komitmen_perusahaan, perusahaan.akta_perubahan_perusahaan, perusahaan.tanda_keanggotaan_asosiasi, perusahaan.kd_perusahaan, perusahaan.nama_perusahaan, perusahaan.nama_direktur, perusahaan.jab_pimpinan, perusahaan.email, perusahaan.no_fax, perusahaan.no_telpon, perusahaan.alamat, perusahaan.company_profile, perusahaan.akta_pendirian, perusahaan.spkmgr, perusahaan.stdp, perusahaan.siup, perusahaan.sktu, perusahaan.siujk, perusahaan.spt, perusahaan.npwp, perusahaan.ktp, perusahaan.laporan_keuangan, perusahaan.proyek_sebelumnya, perusahaan.npwp_file, agent.kd_agent, agent.nama_agent, pejabat.kd_pejabat, pejabat.nama_pejabat from agent join perusahaan on agent.kd_agent=perusahaan.kd_agent join pejabat on pejabat.kd_pejabat=perusahaan.kd_pejabat where perusahaan.kd_perusahaan='$kd_perusahaan'");
 		return $query->row_array();
 	}
 
@@ -358,6 +358,8 @@ class M_mada extends CI_Model
 			'status' => 'Aktif',
 			'npwp_file' => $npwp_file,
 			'foto_ttd' => $foto_ttd,
+			'tgl_komitmen_perusahaan' => date('Y-m-d',strtotime($_POST['tgl_komitmen_perusahaan'])),
+
 		);
 
 		$this->db->insert('perusahaan', $data);
@@ -640,6 +642,7 @@ class M_mada extends CI_Model
 			'tanda_keanggotaan_asosiasi' => $tanda_keanggotaan_asosiasi,
 			'akta_perubahan_perusahaan' => $akta_perubahan_perusahaan,
 			'foto_ttd' => $foto_ttd,
+			'tgl_komitmen_perusahaan' => date('Y-m-d',strtotime($_POST['tgl_komitmen_perusahaan'])),
 		);
 
 		$this->db->where('kd_perusahaan', $_POST['kd_perusahaan']);

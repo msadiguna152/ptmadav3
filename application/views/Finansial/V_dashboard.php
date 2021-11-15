@@ -22,26 +22,9 @@
     <div class="row">
       <!-- left column -->
       <div class="col-md-12">
-        <!-- general form elements -->
-        <div class="box box-primary">
-          <div class="box-header with-border">
-            <h3 class="box-title"></h3>
-          </div>
-          <!-- /.box-header -->
-          <!-- form start -->
-          <form role="form">
-            <div class="box-body">
-              <center>
-                <h3><b>SELAMAT DATANG, <?php echo $this->session->userdata('nama')?></b></h3>
-              </center>
-            </div>
-            <!-- /.box-body -->
-
-            <div class="box-footer">
-
-            </div>
-          </form>
-        </div>
+        <label hidden=""
+        <?php if ($this->session->flashdata('hasil')=="berhasillogin2") { echo 'class="berhasillogin"';}?>>
+        </label>
         <!-- Small boxes (Stat box) -->
         <div class="row">
           <div class="col-lg-4 col-xs-12">

@@ -10,7 +10,6 @@ class Finansial extends CI_Controller
         $this->load->model('M_finansial');
         $this->load->helper('tgl');
         $this->load->helper('nominal');
-        //	$this->load->model('Kode');
 
         if($this->session->userdata('status') != 'Login'){
             $url=base_url();
@@ -21,7 +20,6 @@ class Finansial extends CI_Controller
             $url=base_url();
             echo "<script language='javascript'>alert('Anda Tidak Memiliki Akses'); document.location='" . $url . "';</script>";
         }
-
 
     }
 

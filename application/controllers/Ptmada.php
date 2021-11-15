@@ -12,7 +12,6 @@ class Ptmada extends CI_Controller
         $this->load->helper('tanggal_helper.php');
         $this->load->library('dompdf_gen');
 
-
         $this->load->library('form_validation');
 
         if($this->session->userdata('status') != 'Login'){
@@ -38,7 +37,7 @@ class Ptmada extends CI_Controller
     public function get_dashboard()
     {
         $data = $this->M_mada->get_dashboard();
-		echo json_encode($data);
+        echo json_encode($data);
     }
 
     public function ambil_data()
@@ -57,8 +56,8 @@ class Ptmada extends CI_Controller
         $data = $this->M_mada->get_instansi($id);
 
         $data_instansi = array('pemilik_proyek'    =>  $data['pemilik_proyek'],
-                            'alamat_instansi'            =>  $data['alamat_instansi'],);
-         echo json_encode($data_instansi);
+            'alamat_instansi'            =>  $data['alamat_instansi'],);
+        echo json_encode($data_instansi);
     }
 
     public function lihat_kabupaten()
@@ -176,7 +175,7 @@ class Ptmada extends CI_Controller
     {
         $this->form_validation->set_rules('kd_pejabat','Pejabat Penghubung','required');
         $this->form_validation->set_rules('kd_agent','Data Agent','required');
-         $this->form_validation->set_message('required', '%s Tidak Boleh Kosong');
+        $this->form_validation->set_message('required', '%s Tidak Boleh Kosong');
         if ($this->form_validation->run() == FALSE) {
             $kd_perusahaan = $_POST['kd_perusahaan'];
             $data['data'] = $this->M_mada->get_perusahaan($kd_perusahaan);
@@ -502,23 +501,23 @@ class Ptmada extends CI_Controller
         $this->form_validation->set_message('required', '%s Tidak Boleh Kosong');
         if ($this->form_validation->run() == FALSE) {
             
-        $data['perusahaan'] = $this->M_mada->lihat_perusahaan();
-        $data['dt'] = $this->Kode->kode_permohonan();
-        $data['pejabat'] = $this->M_mada->lihat_pejabat();
-        $data['jenis'] = $this->M_mada->lihat_jenis_jaminan();
-        $data['dokumen'] = $this->M_mada->lihat_dokumen();
-        $data['agent'] = $this->M_mada->lihat_agent();
-        $data['permohonan'] = $this->M_mada->lihat_jenis_permohonan();
-        $data['instansi'] = $this->M_mada->lihat_instansi();
-        $data['kabupaten'] = $this->M_mada->lihat_kabupaten();
-        $this->load->view('header');
-        $this->load->view('PTMADA/menu');
-        $this->load->view('PTMADA/Permohonan/V_tambah_permohonan', $data);
-        $this->load->view('footer');
+            $data['perusahaan'] = $this->M_mada->lihat_perusahaan();
+            $data['dt'] = $this->Kode->kode_permohonan();
+            $data['pejabat'] = $this->M_mada->lihat_pejabat();
+            $data['jenis'] = $this->M_mada->lihat_jenis_jaminan();
+            $data['dokumen'] = $this->M_mada->lihat_dokumen();
+            $data['agent'] = $this->M_mada->lihat_agent();
+            $data['permohonan'] = $this->M_mada->lihat_jenis_permohonan();
+            $data['instansi'] = $this->M_mada->lihat_instansi();
+            $data['kabupaten'] = $this->M_mada->lihat_kabupaten();
+            $this->load->view('header');
+            $this->load->view('PTMADA/menu');
+            $this->load->view('PTMADA/Permohonan/V_tambah_permohonan', $data);
+            $this->load->view('footer');
         }else{
-        $this->M_mada->proses_tambah_permohonan();
-        $this->session->set_flashdata('hasil','swalberhasilsimpan');
-        echo "<script language='javascript'> document.location='" . base_url('Ptmada/lihat_permohonan/') . "';</script>";
+            $this->M_mada->proses_tambah_permohonan();
+            $this->session->set_flashdata('hasil','swalberhasilsimpan');
+            echo "<script language='javascript'> document.location='" . base_url('Ptmada/lihat_permohonan/') . "';</script>";
         }
     }
 
@@ -551,9 +550,9 @@ class Ptmada extends CI_Controller
             $this->load->view('PTMADA/Permohonan/V_edit_permohonan', $data);
             $this->load->view('footer');
         }else{
-        $this->M_mada->proses_edit_permohonan();
-        $this->session->set_flashdata('hasil','swalberhasilubah');
-        echo "<script language='javascript'>document.location='" . base_url('Ptmada/detail_permohonan/'.$_POST['id_permohonan']) . "';</script>";
+            $this->M_mada->proses_edit_permohonan();
+            $this->session->set_flashdata('hasil','swalberhasilubah');
+            echo "<script language='javascript'>document.location='" . base_url('Ptmada/detail_permohonan/'.$_POST['id_permohonan']) . "';</script>";
         }
     }
 
@@ -746,7 +745,7 @@ class Ptmada extends CI_Controller
     }
 
 
-     public function lihat_laporan()
+    public function lihat_laporan()
     {   
         $data['pejabat'] = $this->M_mada->lihat_pejabat();
         $data['agent'] = $this->M_mada->lihat_agent();
@@ -768,7 +767,7 @@ class Ptmada extends CI_Controller
         $this->load->view('footer');
     }
 
-     public function lihat_laporan_komitmen()
+    public function lihat_laporan_komitmen()
     {
         $data['pejabat'] = $this->M_mada->lihat_pejabat();
         $data['data'] = $this->M_mada->laporan_komitmen();

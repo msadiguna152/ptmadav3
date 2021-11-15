@@ -19,44 +19,43 @@
         <div class="box">
 
           <div class="box-header">
-            <h3 class="box-title">Data Laporan Kelengkapan Dokumen Perusahaan Rekanan</h3><br>
+            <h3 class="box-title">Data Laporan Kelengkapan Dokumen Perusahaan Rekanan</h3>
           </div>
-          <div class="row">
-            <form method="POST" action="<?php echo base_url('Ptmada/cari_laporan') ?>">
-              <div class="col-md-8" style="display: flex;" >
-                  <div class="form-group col-md-4"  style="margin-right: 50px; margin-left: 30px">
-                    <label for="exampleInputEmail1">Nama Pejabat</label>
-                    <select class="form-control select2"  name="kd_pejabat" style="width: 100%;">
+
+          <div class="box-header">
+            <div class="row">
+              <form method="POST" action="<?php echo base_url('Ptmada/cari_laporan') ?>">
+                <div class="col-md-12">
+                  <div class="form-group col-md-1">
+                    <label for="exampleInputEmail1">Filter : </label>
+                  </div>
+                  <div class="form-group col-md-3">
+                    <select class="form-control selectpicker show-tick" data-live-search="true" required="" data-style="btn-primary" title="Pilih Nama Pejabat" data-size="5" name="kd_pejabat">
                       <option selected="" value="" >Pilih Nama Pejabat</option>
                       <?php foreach ($pejabat as $dt) {
-                      ?> 
-                      <option value="<?php echo $dt['kd_pejabat'] ?>"><?php echo $dt['nama_pejabat'] ?></option>
+                        ?> 
+                        <option value="<?php echo $dt['kd_pejabat'] ?>"><?php echo $dt['nama_pejabat'] ?></option>
                       <?php } ?>
 
                     </select>
                   </div>
-                  <div class="form-group  col-md-4">
-                    <label for="kd_agent">Agent</label>
-                    <select class="form-control select2" name="kd_agent" style="width: 100%;">
+                  <div class="form-group col-md-3">
+                    <select class="form-control selectpicker show-tick" name="kd_agent" data-live-search="true" required="" data-style="btn-primary" title="Pilih Nama Agent" data-size="5" onchange="this.form.submit();">
                       <option selected="" value="">Pilih Nama Agent</option>
                       <?php foreach ($agent as $dt) {
-                      ?>
+                        ?>
                         <option value="<?php echo $dt['kd_agent'] ?>"><?php echo $dt['nama_agent'] ?></option>
                       <?php  }
                       ?>
                     </select>
                   </div>
-                  <div class="form-group col-md-2">
-                    <button type="submit" class=" form-control btn btn-success" style="margin-top: 10px;" ><i class="fa fa-search"></i> Filter</button>
-                  </div> 
-              </div>
-              <!-- <div class="col-md-12">
-                  <div class="form-group" >
-                    <button type="submit" class=" form-control btn btn-success" style="margin-left: 30px; width: 10%"><i class="fa fa-search"></i> Filter</button>
-                  </div>
-              </div> -->
-            </form>
+
+                </div>
+              </form>
+            </div>
           </div>
+
+          
           <div class="box-footer">
             <a href="<?php echo base_url('Ptmada/cetak_laporan') ?>"><button type="button" class="btn btn-info" title="Tambah Data Pejabat"><i class="fa fa-print"></i> Cetak</button></a>
           </div>

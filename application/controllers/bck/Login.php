@@ -42,7 +42,6 @@ class Login extends CI_Controller
 				$this->session->set_userdata($data_session);
 				$this->session->set_flashdata('hasil','berhasillogin'); 
 				echo "<script language='javascript'>document.location='" . base_url('Ptmada/') . "';</script>";
-
 			} else if ($data['level'] == 'finansial') {
 				$data_session = array(
 					'username' => $data['username'],
@@ -51,7 +50,7 @@ class Login extends CI_Controller
 					'nama'	=> $data['nama']
 				);
 				$this->session->set_userdata($data_session);
-				//$this->session->set_flashdata('hasil','berhasillogin2');
+				$this->session->set_flashdata('hasil','berhasillogin');
 				echo "<script language='javascript'>document.location='" . base_url('Finansial/') . "';</script>";
 				
 			} else if ($data['level'] == 'super') {

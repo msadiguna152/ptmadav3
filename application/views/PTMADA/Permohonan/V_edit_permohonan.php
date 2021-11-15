@@ -182,7 +182,7 @@
                       <div class="form-group" > 
                         <label for="exampleInputPassword1">Tanggal Selesai</label>
                         <div class="input-group date">
-                          <input type="text" name="tgl_sampai" readonly="" value="<?php echo $permohonan['sampai_tgl'] ?>" required="" id="tgl_sampai" class="form-control">
+                          <input type="text" name="tgl_sampai" readonly="" value="<?php echo date("d/m/Y", strtotime($permohonan['sampai_tgl'])) ?>" required="" id="tgl_sampai" class="form-control">
                         </div>
                       </div>
                     </div>
@@ -204,7 +204,7 @@
                   <span style="color: red"><?= form_error('kd_jp') ?></span>
                   <div class="form-group">
                     <label for="exampleInputPassword1">Nama Instansi</label>
-                    <select class="form-control selectpicker show-tick <?= form_error('id_instansi') ? 'is-invalid' : null ?>"  name="id_instansi" id="id_instansi" onchange="changeValue(this.value)" data-live-search="true" required="" data-style="btn-primary">
+                    <select class="form-control selectpicker show-tick <?= form_error('id_instansi') ? 'is-invalid' : null ?>"  name="id_instansi" id="id_instansi" onchange="changeValue(this.value)" data-live-search="true" required="" data-style="btn-primary" data-size="5">
                       <option value="<?php echo $permohonan['id_instansi'] ?>"><?php echo $permohonan['instansi'];
                       $jsArray = "var prdName = new Array();\n";  
                       $jsArray .= "prdName['" . $permohonan['id_instansi'] . "'] = {pemilik_proyek:'" .$permohonan['pemilik_proyek']. "',alamat_instansi:'".$permohonan['alamat_instansi']."'};\n";
@@ -216,7 +216,7 @@
                         foreach ($instansi as $e) {
                           if ($permohonan['id_instansi'] != $e['id_instansi']) {
                       ?>
-                      <option value="<?php echo $e['id_instansi'] ?>"><?php echo $e['instansi'] ?></option>
+                      <option value="<?php echo $e['id_instansi'] ?>"><?php echo substr($e['instansi'],0,'100') ?></option>
                     <?php 
                       $jsArray .= "prdName['" . $e['id_instansi'] . "'] = {pemilik_proyek:'" .str_replace(array("\r","\n"),"",addslashes($e['pemilik_proyek'])). "',alamat_instansi:'".str_replace(array("\r","\n"),"",addslashes($e['alamat_instansi']))."'};\n";
                     } }?>

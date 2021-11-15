@@ -97,6 +97,11 @@
                   </div>
                   <span style="color: red"><?= form_error('kd_agent') ?></span>
 
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Tanggal Komitmen Kelengkapan Dokumen Perusahaan</label>
+                    <input type="date" class="form-control" name="tgl_komitmen_perusahaan" value="<?php echo $data['tgl_komitmen_perusahaan'] ?>" placeholder="Tanggal Komitmen Kelengkapan Dokumen Perusahaan" autocomplete="off">
+                  </div>
+
                 </div>
                 <!-- /.col -->
                 <div class="col-md-6">
