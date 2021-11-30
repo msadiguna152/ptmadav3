@@ -6,6 +6,7 @@ class Finansial extends CI_Controller
     function __construct()
     {
         parent::__construct();
+        ini_set('max_execution_time', 60);
         $this->load->model('M_mada');
         $this->load->model('M_finansial');
         $this->load->helper('tgl');
@@ -59,56 +60,6 @@ class Finansial extends CI_Controller
 		echo json_encode($data);
     }
 
-    //pengeluaran ==============================================================================
-    // public function lihat_pengeluaran($status)
-    // {
-    //     $data['status'] = $status;
-    //     $data['data'] = $this->M_finansial->lihat_pengeluaran($status);
-    //     $this->load->view('header');
-    //     $this->load->view('Finansial/menu');
-    //     $this->load->view('Finansial/Pengeluaran/V_pengeluaran', $data);
-    //     $this->load->view('footer');
-    // }
-
-    // public function tambah_pengeluaran($status)
-    // {
-    //     $data['status'] = $status;
-    //     //$data['kode'] = $this->Kode->kd_pengeluaran();
-    //     $this->load->view('header');
-    //     $this->load->view('Finansial/menu');
-    //     $this->load->view('Finansial/Pengeluaran/V_tambah_pengeluaran', $data);
-    //     $this->load->view('footer');
-    // }
-
-    // public function edit_pengeluaran($id, $status)
-    // {
-    //     $data['status'] = $status;
-    //     $data['data'] = $this->M_finansial->get_pengeluaran($id);
-    //     $this->load->view('header');
-    //     $this->load->view('Finansial/menu');
-    //     $this->load->view('Finansial/pengeluaran/V_edit_pengeluaran', $data);
-    //     $this->load->view('footer');
-    // }
-
-    // public function proses_tambah_pengeluaran($status)
-    // {
-    //     $this->M_finansial->proses_tambah_pengeluaran();
-    //     echo "<script language='javascript'>alert('Data Berhasil Disimpan'); document.location='" . base_url('Finansial/lihat_pengeluaran/' . $status) . "';</script>";
-    // }
-
-    // public function proses_edit_pengeluaran($id, $status)
-    // {
-    //     $this->M_finansial->proses_edit_pengeluaran($id);
-    //     echo "<script language='javascript'>alert('Data Berhasil Diubah'); document.location='" . base_url('Finansial/lihat_pengeluaran/' . $status) . "';</script>";
-    // }
-
-    // public function hapus_pengeluaran($id, $status)
-    // {
-    //     $this->M_finansial->hapus_pengeluaran($id);
-    //     echo "<script language='javascript'>alert('Data Berhasil Dihapus'); document.location='" . base_url('Finansial/lihat_pengeluaran/' . $status) . "';</script>";
-    // }
-
-    //permohonan ==============================================================================
     public function lihat_permohonan()
     {
         $data['data'] = $this->M_finansial->lihat_permohonan();
@@ -779,119 +730,6 @@ class Finansial extends CI_Controller
         echo "<script language='javascript'>alert('Data Berhasil Diubah'); document.location='" . base_url('Finansial/lihat_umum/') . "';</script>";
     }
 
-
-    //laporan ==============================================================================
-    // public function master_cetak()
-    // {
-    //     require_once APPPATH . "/third_party/PHPExcel.php";
-    //     $objPHPExcel = PHPExcel_IOFactory::load("file/template/master.xlsx");
-
-    //     $style_row = array(
-    //         'font'  => array(
-    //             'size'  => 12,
-    //             'name'  => 'Times New Roman'
-    //         ),
-    //         'borders' => array(
-    //             'top' => array('style'  => PHPExcel_Style_Border::BORDER_THIN), // Set border top dengan garis tipis
-    //             'right' => array('style'  => PHPExcel_Style_Border::BORDER_THIN),  // Set border right dengan garis tipis
-    //             'bottom' => array('style'  => PHPExcel_Style_Border::BORDER_THIN), // Set border bottom dengan garis tipis
-    //             'left' => array('style'  => PHPExcel_Style_Border::BORDER_THIN) // Set border left dengan garis tipis
-    //         )
-    //     );
-
-    //     $style_col = array(
-    //         'alignment' => array(
-    //             'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
-    //         )
-    //     );
-
-    //     $style_footer = array(
-    //         'font'  => array(
-    //             'size'  => 12,
-    //             'name'  => 'Times New Roman',
-    //             'bold' => True
-    //         )
-    //     );
-
-    //     $master = $this->M_finansial->get_master();
-    //     $no = 1;
-    //     $numrow = 2;
-    //     foreach ($master as $data) {
-    //         $objPHPExcel->setActiveSheetIndex(0)
-    //             ->setCellValue('A' . $numrow, $no)
-    //             ->setCellValue('B' . $numrow, date_indo($data->tgl_permohonan))
-    //             ->setCellValue('C' . $numrow, $data->nama_perusahaan)
-    //             ->setCellValue('D' . $numrow, $data->nama_pejabat)
-    //             ->setCellValue('E' . $numrow, $data->nama_agent)
-    //             ->setCellValue('F' . $numrow, $data->kabupaten)
-    //             ->setCellValue('G' . $numrow, nominal($data->nilai_proyek))
-    //             ->setCellValue('H' . $numrow, nominal($data->nilai_jaminan))
-    //             ->setCellValue('I' . $numrow, $data->jangka_waktu)
-    //             ->setCellValue('J' . $numrow, "Bulan")
-    //             // ->setCellValue('K' . $numrow, $data->trf_jamkrida . "%")
-    //             ->setCellValue('L' . $numrow, $data->jenis_jaminan)
-    //             ->setCellValue('M' . $numrow, $data->jenis)
-    //             ->setCellValue('N' . $numrow, nominal($data->ijpagent))
-    //             ->setCellValue('O' . $numrow, nominal($data->garansi_bank))
-    //             ->setCellValue('P' . $numrow, nominal($data->total_biaya))
-    //             ->setCellValue('Q' . $numrow, nominal($data->ijpjamkrida))
-    //             ->setCellValue('R' . $numrow, nominal($data->nilaidiskon))
-    //             ->setCellValue('S' . $numrow, nominal($data->garansi_bank))
-    //             ->setCellValue('T' . $numrow, nominal($data->total_biaya2))
-    //             ->setCellValue('U' . $numrow, nominal($data->saldo));
-
-    //         // Apply style row yang telah kita buat tadi ke masing-masing baris (isi tabel)
-    //         $objPHPExcel->getActiveSheet()->getStyle('A' . $numrow)->applyFromArray($style_col);
-    //         $objPHPExcel->getActiveSheet()->getStyle('B' . $numrow)->applyFromArray($style_col);
-    //         $objPHPExcel->getActiveSheet()->getStyle('J' . $numrow)->applyFromArray($style_col);
-    //         $objPHPExcel->getActiveSheet()->getStyle('L' . $numrow)->applyFromArray($style_col);
-    //         $objPHPExcel->getActiveSheet()->getStyle('M' . $numrow)->applyFromArray($style_col);
-
-    //         $objPHPExcel->getActiveSheet()->getStyle('A' . $numrow)->applyFromArray($style_row);
-    //         $objPHPExcel->getActiveSheet()->getStyle('B' . $numrow)->applyFromArray($style_row);
-    //         $objPHPExcel->getActiveSheet()->getStyle('C' . $numrow)->applyFromArray($style_row);
-    //         $objPHPExcel->getActiveSheet()->getStyle('D' . $numrow)->applyFromArray($style_row);
-    //         $objPHPExcel->getActiveSheet()->getStyle('E' . $numrow)->applyFromArray($style_row);
-    //         $objPHPExcel->getActiveSheet()->getStyle('F' . $numrow)->applyFromArray($style_row);
-    //         $objPHPExcel->getActiveSheet()->getStyle('G' . $numrow)->applyFromArray($style_row);
-    //         $objPHPExcel->getActiveSheet()->getStyle('H' . $numrow)->applyFromArray($style_row);
-    //         $objPHPExcel->getActiveSheet()->getStyle('I' . $numrow)->applyFromArray($style_row);
-    //         $objPHPExcel->getActiveSheet()->getStyle('J' . $numrow)->applyFromArray($style_row);
-    //         $objPHPExcel->getActiveSheet()->getStyle('L' . $numrow)->applyFromArray($style_row);
-    //         $objPHPExcel->getActiveSheet()->getStyle('M' . $numrow)->applyFromArray($style_row);
-    //         $objPHPExcel->getActiveSheet()->getStyle('N' . $numrow)->applyFromArray($style_row);
-    //         $objPHPExcel->getActiveSheet()->getStyle('O' . $numrow)->applyFromArray($style_row);
-    //         $objPHPExcel->getActiveSheet()->getStyle('P' . $numrow)->applyFromArray($style_row);
-    //         $objPHPExcel->getActiveSheet()->getStyle('Q' . $numrow)->applyFromArray($style_row);
-    //         $objPHPExcel->getActiveSheet()->getStyle('R' . $numrow)->applyFromArray($style_row);
-    //         $objPHPExcel->getActiveSheet()->getStyle('S' . $numrow)->applyFromArray($style_row);
-    //         $objPHPExcel->getActiveSheet()->getStyle('T' . $numrow)->applyFromArray($style_row);
-    //         $objPHPExcel->getActiveSheet()->getStyle('U' . $numrow)->applyFromArray($style_row);
-
-    //         $no++;
-    //         $numrow++;
-    //     }
-
-    //     $fot = $no + 1;
-
-    //     $objPHPExcel->setActiveSheetIndex(0)
-    //         ->setCellValue('P' . $fot, "Hutang IJP")
-    //         ->setCellValue('Q' . $fot, $fot)
-    //         ->setCellValue('T' . $fot, "Total Pendapatan")
-    //         ->setCellValue('U' . $fot, $no);
-
-    //     $objPHPExcel->getActiveSheet()->getStyle('P' . $fot)->applyFromArray($style_footer);
-    //     $objPHPExcel->getActiveSheet()->getStyle('Q' . $fot)->applyFromArray($style_footer);
-    //     $objPHPExcel->getActiveSheet()->getStyle('T' . $fot)->applyFromArray($style_footer);
-    //     $objPHPExcel->getActiveSheet()->getStyle('U' . $fot)->applyFromArray($style_footer);
-
-    //     header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-    //     header('Content-Disposition: attachment; filename="MASTER.xlsx"');
-    //     header('Cache-Control: max-age=0');
-    //     $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
-    //     $objWriter->save('php://output');
-    // }
-
     public function master_cetak2()
     {
         $tgl_awal = $this->input->post('tgl_awal');
@@ -1017,9 +855,9 @@ class Finansial extends CI_Controller
     public function lihat_laporan()
     {
 
-        $pejabat = $this->M_finansial->get_pejabat();
-        $pejabat[''] = 'Pilih Pejabat';
-        $data['form_pejabat'] = form_dropdown('', $pejabat, '', 'id="kd_pejabat" name="kd_pejabat" class="form-control select2"');
+        $data['list_pejabat'] = $this->M_finansial->get_pejabat();
+        // $pejabat[''] = 'Pilih Pejabat';
+        // $data['form_pejabat'] = form_dropdown('', $pejabat, '', 'id="kd_pejabat" name="kd_pejabat" class="form-control select2"');
 
         $agent = $this->M_finansial->get_agent();
         $agent[''] = 'Pilih Agent';

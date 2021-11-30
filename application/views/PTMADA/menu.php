@@ -23,15 +23,6 @@
             <i class="fa fa-power-off"></i> &nbsp <b>Logout</b>
           </a>
         </li>
-        <!-- Messages: style can be found in dropdown.less-->
-
-        <!-- Notifications: style can be found in dropdown.less -->
-
-        <!-- Tasks: style can be found in dropdown.less -->
-
-        <!-- User Account: style can be found in dropdown.less -->
-
-        <!-- Control Sidebar Toggle Button -->
 
       </ul>
     </div>
@@ -41,22 +32,6 @@
 <aside class="main-sidebar">
   <!-- sidebar: style can be found in sidebar.less -->
   <section class="sidebar">
-    <!-- Sidebar user panel -->
-
-    <!-- search form -->
-    <!-- <form action="#" method="get" class="sidebar-form">
-        <div class="input-group">
-          <input type="text" name="q" class="form-control" placeholder="Search...">
-              <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                </button>
-              </span>
-        </div>
-      </form> -->
-    <!-- /.search form -->
-    <!-- sidebar menu: : style can be found in sidebar.less -->
-
-    <!-- SIDEBAR 1 -->
     <ul class="sidebar-menu tree" data-widget="tree">
       <li class="header">MENU UTAMA</li>
 

@@ -22,16 +22,6 @@
             <i class="fa fa-power-off"></i> &nbsp <b>Logout</b>
           </a>
         </li>
-        <!-- Messages: style can be found in dropdown.less-->
-
-        <!-- Notifications: style can be found in dropdown.less -->
-
-        <!-- Tasks: style can be found in dropdown.less -->
-
-        <!-- User Account: style can be found in dropdown.less -->
-
-        <!-- Control Sidebar Toggle Button -->
-
       </ul>
     </div>
   </nav>
@@ -40,22 +30,6 @@
 <aside class="main-sidebar">
   <!-- sidebar: style can be found in sidebar.less -->
   <section class="sidebar">
-    <!-- Sidebar user panel -->
-
-    <!-- search form -->
-    <!-- <form action="#" method="get" class="sidebar-form">
-        <div class="input-group">
-          <input type="text" name="q" class="form-control" placeholder="Search...">
-              <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                </button>
-              </span>
-        </div>
-      </form> -->
-    <!-- /.search form -->
-    <!-- sidebar menu: : style can be found in sidebar.less -->
-
-    <!-- SIDEBAR 1 -->
     <ul class="sidebar-menu tree" data-widget="tree">
       <li class="header">MENU UTAMA</li>
 
@@ -92,16 +66,6 @@
         </ul>
       </li>
 
-      <!-- <li>
-        <a href="<?php echo base_url('Finansial/lihat_transaksi') ?>">
-          <i class="fa fa-book"></i> <span>Transaksi Permohonan</span>
-        </a>
-      </li>
-      <li>
-        <a href="<?php echo base_url('Finansial/lihat_umum') ?>">
-          <i class="fa fa-book"></i> <span>Transaksi Umum</span>
-        </a>
-      </li> -->
       <li class="treeview" style="height: auto;">
         <a href="#">
           <i class="fa fa-print"></i> <span>Laporan</span>
@@ -111,7 +75,7 @@
         </a>
         <ul class="treeview-menu" style="display: none;">
           <li>
-            <a href="<?php echo base_url('Finansial/lihat_laporan') ?>">
+            <a href="<?php echo base_url('Laporan/lihat_laporan') ?>">
               <i class="fa fa-book"></i> <span>Lap. Pendapatan Perusahaan</span>
             </a>
           </li>

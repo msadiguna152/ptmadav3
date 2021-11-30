@@ -56,24 +56,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="form-group">
-                                                <label class="col-sm-4 control-label">Pejabat Penghubung</label>
-                                                <div class="col-sm-4">
-                                                    <?php echo $form_pejabat; ?>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="col-sm-4 control-label">Agent</label>
-                                                <div class="col-sm-4">
-                                                    <?php echo $form_agent; ?>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="col-sm-4 control-label">Perusahaan</label>
-                                                <div class="col-sm-4">
-                                                    <?php echo $form_perusahaan; ?>
-                                                </div>
-                                            </div>
+                                            
                                             <div class="form-group">
                                                 <div class="col-sm-offset-4 col-sm-10">
                                                     <button type="button" id="btn-filter" class="btn btn-info" title="filter"><i class="fa fa-search"></i> Filter</button>
@@ -110,83 +93,14 @@
                                                     <input type="text" name="pemasukan" id="pemasukan" class="form-control" readonly value="<?php echo "Rp." . number_format($profit, 0, ',', '.'); ?>">
                                                 </div>
                                             </div>
-                                            <!-- <div class="form-group">
-                                                <label class="col-sm-2 control-label">Tanggal Akhir</label>
-                                                <div class="col-sm-2">
-                                                    <div class="input-group date">
-                                                        <div class="input-group-addon">
-                                                            <i class="fa fa-calendar"></i>
-                                                        </div>
-                                                        <input type="date" name="tgl_akhir" id="tgl_akhir" class="form-control" required>
-                                                    </div>
-                                                </div>
-                                            </div> -->
-
-                                            <!-- <div class="form-group">
-                                                <label class="col-sm-2 control-label">Tanggal Akhir</label>
-                                                <div class="col-sm-2">
-                                                    <div class="input-group date">
-                                                        <div class="input-group-addon">
-                                                            <i class="fa fa-calendar"></i>
-                                                        </div>
-                                                        <input type="date" name="tgl_akhir" id="tgl_akhir" class="form-control" required>
-                                                    </div>
-                                                </div>
-                                            </div> -->
                                         </form>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="table-responsive">
-                            <table id="data" class="table table-bordered table-striped" style="width:100%">
-                                <thead>
-                                    <tr>
-                                        <!-- <th>No</th> -->
-                                        <th>Tanggal Permohonan</th>
-                                        <th>No Permohonan</th>
-                                        <th>Jenis Jaminan</th>
-                                        <th>Perusahaan</th>
-                                        <th>Nama Proyek</th>
-                                        <th>Pejabat Penghubung</th>
-                                        <th>Agent</th>
-                                        <th>Jumlah Pemasukan</th>
-                                        <th>Jumlah Pengeluaran</th>
-                                        <th>Profit</th>
-                                        <!-- <th>Aksi</th> -->
-                                    </tr>
-                                </thead>
-                                <tfoot id="total">
-                                    <tr>
-                                        <!-- <th>No</th> -->
-                                        <th>Tanggal Permohonan</th>
-                                        <th>No Permohonan</th>
-                                        <th>Jenis Jaminan</th>
-                                        <th>Perusahaan</th>
-                                        <th>Nama Proyek</th>
-                                        <th>Pejabat Penghubung</th>
-                                        <th>Agent</th>
-                                        <th>Jumlah Pemasukan</th>
-                                        <th>Jumlah Pengeluaran</th>
-                                        <th>Profit</th>
-                                        <!-- <th>Aksi</th> -->
-                                    </tr>
-                                    <!-- <tr id="total">
-                                    <th colspan="6" class="text-center">Total</th>
-                                   
-                                </tr> -->
-                                </tfoot>
-                                <tbody>
-
-                                </tbody>
-                            </table>
-                        </div>
+                        
                     </div>
-                    <!-- /.box-body
-          </div>
-          <!-- /.box -->
-                </div>
-                <!-- /.col -->
+
             </div>
             <!-- /.row -->
     </section>
