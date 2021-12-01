@@ -123,6 +123,7 @@ class M_finansial extends CI_Model
 			transaksi_umum ) c;
 			")->result();
 	}
+
 	public function get_pendapatan($status)
 	{
 
@@ -1129,46 +1130,23 @@ class M_finansial extends CI_Model
 
 	public function total_pengeluaran()
 	{
-		return $this->db->query("SELECT
-		CASE
-				WHEN sum(trf.total_biaya2) IS NULL THEN 0
-				ELSE sum(trf.total_biaya2)
-			END AS pengeluaran,
-			CASE
-				WHEN sum(b.jml_byr) IS NULL THEN 0
-				ELSE sum(b.jml_byr)
-			END AS  	jml_byr,
-			CASE
-		WHEN sum(trf.total_biaya2) - sum(b.jml_byr) IS NULL THEN
-		CASE
-			WHEN sum(trf.total_biaya2) IS NULL THEN 0
-			ELSE sum(trf.total_biaya2)
-		END
-		ELSE sum(trf.total_biaya2) - sum(b.jml_byr)
-	END as sisa_byr
-		FROM
-			(
-			SELECT
-				DISTINCT a.id_permohonan ids, a.*, det.status_pengeluaran
-			FROM
-				(
-				SELECT
-					p2.* , sum(jml_pembayaran) jml_byr
-				FROM
-					pembayaran_jamkrida p
-				RIGHT JOIN permohonan p2 on
-					p.id_permohonan = p2.id_permohonan
-				GROUP BY
-					p2.id_permohonan ) a
-			JOIN pejabat pej ON
-				pej.kd_pejabat = a.kd_pejabat
-			JOIN detail_tarif det ON
-				det.id_permohonan = a.id_permohonan ) b
-		JOIN tarif trf ON
-			trf.id_permohonan = b.id_permohonan
+		return $this->db->query("
+			SELECT IF(sum(tbl.total_biaya2) IS NULL, 0, sum(tbl.total_biaya2)) AS pengeluaran,
+				   IF(sum(tbl.jml_byr) IS NULL, 0, sum(tbl.jml_byr))           AS jml_byr,
+				   IF(sum(tbl.total_biaya2) - sum(tbl.jml_byr) IS NULL, IF(sum(tbl.total_biaya2) IS NULL, 0, sum(tbl.total_biaya2)),
+					  sum(tbl.total_biaya2) - sum(tbl.jml_byr))                as sisa_byr
+			FROM (
+					 SELECT trf.total_biaya2,
+							(SELECT sum(jml_pembayaran)
+							 FROM pembayaran_jamkrida p
+							 where perm.id_permohonan = p.id_permohonan) jml_byr
+					 FROM permohonan perm
+							  INNER JOIN pejabat pej ON pej.kd_pejabat = perm.kd_pejabat
+							  INNER JOIN tarif trf ON trf.id_permohonan = perm.id_permohonan
+							  INNER JOIN detail_tarif det ON det.id_permohonan = perm.id_permohonan
+					 GROUP BY perm.id_permohonan) as tbl
 		")->result_array();
 	}
-
 
 
 	public function get_data($keyword = '', $tgl_awal, $tgl_akhir, $agent, $pejabat, $perusahaan)
@@ -1415,7 +1393,7 @@ class M_finansial extends CI_Model
 		return $data;
 	}
 
-	public function get_data_pemasukan($keyword = '', $tgl_awal, $tgl_akhir, $status, $pejabat, $perusahaan)
+	public function get_data_pemasukan($keyword = '', $tgl_awal, $tgl_akhir, $status, $pejabat, $perusahaan, $is_counting = false)
 	{
 		$where = '';
 		$where2 = '';
@@ -1521,7 +1499,7 @@ class M_finansial extends CI_Model
 		$where = '';
 		$where2 = '';
 		$where3 = '';
-		$where4  = '';
+		$where4 = '';
 
 		if ($tgl_awal != '' and $tgl_akhir != '') {
 			$where = "WHERE b.tgl_permohonan BETWEEN '$tgl_awal' and '$tgl_akhir'";
@@ -1712,7 +1690,7 @@ class M_finansial extends CI_Model
 		$where = '';
 		$where2 = '';
 		$where3 = '';
-		$where4  = '';
+		$where4 = '';
 
 		if ($tgl_awal != '' and $tgl_akhir != '') {
 			$where = "WHERE a.tgl_permohonan BETWEEN '$tgl_awal' and '$tgl_akhir'";
@@ -1758,52 +1736,57 @@ class M_finansial extends CI_Model
 			}
 		}
 
-		$q = $this->db->query("SELECT
-		*
-		FROM
-			(
-			SELECT
-				DISTINCT  a.no_permohonan, DATE_FORMAT( a.tgl_permohonan, '%d-%m-%Y' ) AS tgl_permohonan,  jen.jenis_jaminan, pr.nama_perusahaan, a.nama_pekerjaan, pej.nama_pejabat, CONCAT( 'Rp.', FORMAT( trf.total_biaya2, 2 ) ),
-				CASE
-					WHEN a.jml_pembayaran IS NULL THEN CONCAT( 'Rp.', FORMAT( 0, 2 ) )
-					WHEN a.jml_pembayaran <= 0 THEN CONCAT( 'Rp.', FORMAT( 0, 2 ) )
-					ELSE CONCAT( 'Rp.', FORMAT( a.jml_pembayaran, 2 ) )
-				END AS jml_pembayaran,
-				CASE
-					WHEN trf.total_biaya2 - a.jml_pembayaran IS NULL THEN CONCAT( 'Rp.', FORMAT( trf.total_biaya2 , 2 ) )
-					WHEN trf.total_biaya2 - a.jml_pembayaran <= 0 THEN CONCAT( 'Rp.', FORMAT( 0, 2 ) )
-					ELSE CONCAT( 'Rp.', FORMAT( trf.total_biaya2 - a.jml_pembayaran, 2 ) )
-				END AS sisa_bayar,
-				CASE
-					WHEN det.status_pengeluaran = 0 THEN 'BELUM LUNAS'
-					ELSE 'LUNAS'
-				END AS STATUS
-			FROM
-				(
-				SELECT
-					p2.*, sum(jml_pembayaran) AS jml_pembayaran
-				FROM
-					pembayaran_jamkrida p
-				RIGHT JOIN permohonan p2 ON
-					p.id_permohonan = p2.id_permohonan
-				group by
-					p2.id_permohonan) a
-			JOIN perusahaan pr ON
-				pr.kd_perusahaan = a.kd_perusahaan
-			JOIN jenis_jaminan jen ON
-				jen.kd_jenis = a.id_persen
-			JOIN pejabat pej ON
-				pej.kd_pejabat = a.kd_pejabat
-			JOIN tarif trf ON
-				trf.id_permohonan = a.id_permohonan
-			JOIN detail_tarif det ON
-				det.id_permohonan = a.id_permohonan
-				$where $where2 $where3 $where4 ) b
-		WHERE
-			lower(b.tgl_permohonan) LIKE lower('%$keyword%')
-			OR lower(b.nama_perusahaan) LIKE lower('%$keyword%')
-			OR lower(b.nama_pekerjaan) LIKE lower('%$keyword%')
-			OR lower(b.nama_pejabat) LIKE lower('%$keyword%')
+		$q = $this->db->query("
+			SELECT perm.no_permohonan,
+				   DATE_FORMAT(perm.tgl_permohonan, '%d-%m-%Y')          as tgl_permohonan,
+				   perm.jenis_jaminan,
+				   perm.nama_perusahaan,
+				   perm.nama_pekerjaan,
+				   perm.nama_pejabat,
+				   CONCAT('Rp.', FORMAT(perm.total_biaya2, 2))           as total_biaya,
+				   CASE
+					   WHEN (select SUM(jml_pembayaran)
+							 from pembayaran_jamkrida pem
+							 where pem.id_permohonan = perm.id_permohonan) IS NULL
+						   THEN CONCAT('Rp.', FORMAT(0, 2))
+					   WHEN (select SUM(jml_pembayaran)
+							 from pembayaran_jamkrida pem
+							 where pem.id_permohonan = perm.id_permohonan) <= 0
+						   THEN CONCAT('Rp.', FORMAT(0, 2))
+					   ELSE CONCAT('Rp.', FORMAT(
+							   (select SUM(jml_pembayaran)
+								from pembayaran_jamkrida pem
+								where pem.id_permohonan = perm.id_permohonan),
+							   2)) END                                   as jml_pembayaran,
+				   CASE
+					   WHEN perm.total_biaya2 -
+							(select SUM(jml_pembayaran)
+							 from pembayaran_jamkrida pem
+							 where pem.id_permohonan = perm.id_permohonan) IS NULL
+						   THEN CONCAT('Rp.', FORMAT(perm.total_biaya2, 2))
+					   WHEN perm.total_biaya2 -
+							(select SUM(jml_pembayaran)
+							 from pembayaran_jamkrida pem
+							 where pem.id_permohonan = perm.id_permohonan) <= 0
+						   THEN CONCAT('Rp.', FORMAT(0, 2))
+					   ELSE CONCAT('Rp.', FORMAT(perm.total_biaya2 - (select SUM(jml_pembayaran)
+																	  from pembayaran_jamkrida pem
+																	  where pem.id_permohonan = perm.id_permohonan),
+												 2)) END                 AS sisa_bayar,
+				   IF(perm.status_pemasukan = 0, 'BELUM LUNAS', 'LUNAS') AS status
+			FROM (SELECT perm.*, pr.nama_perusahaan, jen.jenis_jaminan, pej.nama_pejabat, trf.total_biaya2, det.status_pemasukan
+				  FROM permohonan perm
+						   INNER JOIN perusahaan pr ON pr.kd_perusahaan = perm.kd_perusahaan
+						   INNER JOIN pejabat pej ON pej.kd_pejabat = perm.kd_pejabat
+						   INNER JOIN tarif trf ON trf.id_permohonan = perm.id_permohonan
+						   INNER JOIN detail_tarif det ON det.id_permohonan = perm.id_permohonan
+						   INNER JOIN jenis_jaminan jen ON jen.kd_jenis = perm.id_persen
+					$where $where2 $where3 $where4
+				  GROUP BY perm.id_permohonan) perm
+			WHERE lower(perm.tgl_permohonan) LIKE lower('%$keyword%')
+			   OR lower(perm.nama_perusahaan) LIKE lower('%$keyword%')
+			   OR lower(perm.nama_pekerjaan) LIKE lower('%$keyword%')
+			   OR lower(perm.nama_pejabat) LIKE lower('%$keyword%')
 		");
 		return $q;
 	}
@@ -1859,44 +1842,25 @@ class M_finansial extends CI_Model
 			}
 		}
 
-		$q = $this->db->query("SELECT
-			CASE
-				WHEN sum(trf.total_biaya2) IS NULL THEN CONCAT( 'Rp.', FORMAT( 0, 2 ) )
-				ELSE CONCAT( 'Rp.', FORMAT( sum(trf.total_biaya2), 2 ) )
-			END AS jml_keluar,
-			CASE
-				WHEN sum(b.jml_byr) IS NULL THEN CONCAT( 'Rp.', FORMAT( 0, 2 ) )
-				ELSE CONCAT( 'Rp.', FORMAT( sum(b.jml_byr), 2 ) )
-			END AS  	jml_byr,
-			CASE
-				WHEN sum(trf.total_biaya) - sum(b.jml_byr) IS NULL THEN
-				CASE
-					WHEN sum(trf.total_biaya2) IS NULL THEN CONCAT( 'Rp.', FORMAT( 0, 2 ) )
-					ELSE CONCAT( 'Rp.', FORMAT( sum(trf.total_biaya2), 2 ) )
-				END
-				ELSE CONCAT( 'Rp.', FORMAT( sum(trf.total_biaya2) - sum(b.jml_byr), 2 ) )
-			END as sisa_byr
-		FROM
-			(
-			SELECT
-				DISTINCT a.id_permohonan ids, a.*, det.status_pengeluaran
-			FROM
-				(
-				SELECT
-					p2.* , sum(jml_pembayaran) jml_byr
-				FROM
-					pembayaran_jamkrida p
-				RIGHT JOIN permohonan p2 on
-					p.id_permohonan = p2.id_permohonan
-				GROUP BY
-					p2.id_permohonan ) a
-			JOIN pejabat pej ON
-				pej.kd_pejabat = a.kd_pejabat
-			JOIN detail_tarif det ON
-				det.id_permohonan = a.id_permohonan ) b
-		JOIN tarif trf ON
-			trf.id_permohonan = b.id_permohonan
-		$where $where2 $where3 $where4
+		$q = $this->db->query("
+			SELECT IF(sum(tbl.total_biaya2) IS NULL, CONCAT('Rp.', FORMAT(0, 2)),
+					  CONCAT('Rp.', FORMAT(sum(tbl.total_biaya2), 2)))                                                   AS jml_keluar,
+				   IF(sum(tbl.jml_byr) IS NULL, CONCAT('Rp.', FORMAT(0, 2)), CONCAT('Rp.', FORMAT(sum(tbl.jml_byr), 2))) AS jml_byr,
+				   IF(sum(tbl.total_biaya2) - sum(tbl.jml_byr) IS NULL,
+					  IF(sum(tbl.total_biaya2) IS NULL, CONCAT('Rp.', FORMAT(0, 2)),
+						 CONCAT('Rp.', FORMAT(sum(tbl.total_biaya2), 2))),
+					  CONCAT('Rp.', FORMAT(sum(tbl.total_biaya2) - sum(tbl.jml_byr), 2)))                                as sisa_byr
+			FROM (
+					 SELECT trf.total_biaya2,
+							(SELECT sum(jml_pembayaran)
+							 FROM pembayaran_jamkrida p
+							 where perm.id_permohonan = p.id_permohonan) jml_byr
+					 FROM permohonan perm
+							  INNER JOIN pejabat pej ON pej.kd_pejabat = perm.kd_pejabat
+							  INNER JOIN tarif trf ON trf.id_permohonan = perm.id_permohonan
+							  INNER JOIN detail_tarif det ON det.id_permohonan = perm.id_permohonan
+					 GROUP BY perm.id_permohonan) as tbl 
+			$where $where2 $where3 $where4
 		");
 
 		return $q->result_array();
@@ -1908,7 +1872,7 @@ class M_finansial extends CI_Model
 		$where = '';
 		$where2 = '';
 		$where3 = '';
-		$where4  = '';
+		$where4 = '';
 
 		if ($tgl_awal != '' and $tgl_akhir != '') {
 			$where = "WHERE a.tgl_permohonan BETWEEN '$tgl_awal' and '$tgl_akhir'";
@@ -1999,7 +1963,7 @@ class M_finansial extends CI_Model
 		")->result();
 	}
 
-	public function get_data_umum($keyword = '', $tgl_awal, $tgl_akhir,  $pejabat)
+	public function get_data_umum($keyword = '', $tgl_awal, $tgl_akhir, $pejabat)
 	{
 		$where = '';
 		$where2 = '';
@@ -2235,8 +2199,8 @@ class M_finansial extends CI_Model
 				"bukti" => "<a href='" . base_url() . "file/transaksi_umum/" . $record->bukti . "' title='Open File' target='_blank'><i class='fa fa-eye'></i> Open File</a>",
 				"nama_pejabat" => $record->nama_pejabat,
 				"aksi" => "<center>
-				<a href='" . base_url() . "finansial/edit_umum/" . $record->id .  "' title='Edit'><i class='fa fa-edit'></i></a> |
-				<a href='" . base_url() . "finansial/hapus_umum/" . $record->id .  "' onclick='return konformasi()' title='Delete'><i class='fa fa-trash'></i></a>
+				<a href='" . base_url() . "finansial/edit_umum/" . $record->id . "' title='Edit'><i class='fa fa-edit'></i></a> |
+				<a href='" . base_url() . "finansial/hapus_umum/" . $record->id . "' onclick='return konformasi()' title='Delete'><i class='fa fa-trash'></i></a>
 			  	</center>"
 			);
 		}
@@ -2310,7 +2274,6 @@ class M_finansial extends CI_Model
 			$where
 			$where2 
 			) c")->result_array();
-
 
 
 		return $records;
