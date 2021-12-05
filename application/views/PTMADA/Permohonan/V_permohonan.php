@@ -33,7 +33,7 @@
                   <th style="text-align: center;">Nama Perusahaan</th>
                   <th style="text-align: center;">Nama Pekerjaan</th>
                   <th style="text-align: center; width: 120px">Nilai Proyek</th>
-                  <th style="text-align: center;width: 40px;">Aksi</th>
+                  <th style="text-align: center;width: 80px;">Opsi</th>
                 </tr>
               </thead>
               <tbody>
@@ -48,30 +48,37 @@
                     <td><?php echo $dt['nama_pekerjaan']; ?></td>
                     <td><?php echo "Rp. " . number_format($dt['nilai_proyek'], 2, ',', '.'); ?></td>
                     <td>
-                        <!-- Tombol Cetak -->
-                        <a href="<?php echo site_url('Ptmada/cetak_permohonan/' . $dt['id_permohonan']); ?>" target="_blank">
-                          <button class="btn btn-info btn-sm btn-block" data-toggle="tooltip" data-placement="auto" title="Cetak Data : <?php echo $dt['no_permohonan'] ?>">
-                            <i class="fa fa-print"></i>
-                          </button>
-                        </a>
-                        <!-- Tombol Detail -->
-                        <a href="<?php echo site_url('Ptmada/detail_permohonan/' . $dt['id_permohonan']); ?>">
-                          <button class="btn btn-secondary btn-sm btn-block" data-toggle="tooltip" data-placement="auto" title="Lihat Detail Data : <?php echo $dt['no_permohonan'] ?>">
-                            <i class="fa fa-info-circle"></i>
-                          </button>
-                        </a>
-                        <!-- Tombol Edit -->
-                        <a href="<?php echo site_url('Ptmada/edit_permohonan/' . $dt['id_permohonan']); ?>">
-                          <button class="btn btn-success btn-sm btn-block" data-toggle="tooltip" data-placement="auto" title="Edit Data : <?php echo $dt['no_permohonan'] ?>">
-                            <i class="fa fa-edit"></i>
-                          </button>
-                        </a>
-                        <!-- Tombol Delete -->
-                        <a href="<?php echo site_url('Ptmada/hapus_permohonan/' . $dt['id_permohonan']); ?>" onclick="return confirm('Apa Anda Yakin Akan Menghapus Data <?php echo $dt['no_permohonan'] ?>?')">
-                          <button class="btn btn-danger btn-sm btn-block" data-toggle="tooltip" data-placement="auto" title="Hapus Data : <?php echo $dt['no_permohonan'] ?>">
-                            <i class="fa fa-trash"></i>
-                          </button>
-                        </a>
+                      <div class="btn-group">
+                        <button type="button" class="btn btn-info">Aksi</button>
+                        <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+                          <span class="caret"></span>
+                          <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu" style="left: -45px;">
+                          <li>
+                            <a class="dropdown-item" href="<?php echo site_url('Ptmada/cetak_permohonan/' . $dt['id_permohonan']); ?>">
+                              <button class="btn btn-sm btn-info btn-block">Cetak</button>
+                            </a>
+                          </li>
+
+                          <li>
+                            <a class="dropdown-item" href="<?php echo site_url('Ptmada/detail_permohonan/' . $dt['id_permohonan']); ?>">
+                              <button class="btn btn-sm btn-success btn-block">Detail</button>
+                            </a>
+                          </li>
+
+                          <li>
+                            <a class="dropdown-item" href="<?php echo site_url('Ptmada/edit_permohonan/' . $dt['id_permohonan']); ?>">
+                              <button class="btn btn-sm btn-primary btn-block">Ubah</button>
+                            </a>
+                          </li>
+                          <li>
+                            <a class="dropdown-item" onclick="return confirm('Hapus Data?')" href="<?php echo site_url('Ptmada/hapus_permohonan/' . $dt['id_permohonan']); ?>">
+                              <button class="btn btn-sm btn-danger btn-block btn-block">Hapus</button>
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
                     </td>
                   </tr>
                 <?php

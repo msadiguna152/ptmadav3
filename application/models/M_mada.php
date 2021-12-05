@@ -13,22 +13,22 @@ class M_mada extends CI_Model
 			SELECT
 				count(*)
 			FROM
-				permohonan p) permohonan ,
+				permohonan p) permohonan,
 			(
 			SELECT
 				count(*)
 			FROM
-				perusahaan p) perusahaan,
+				perusahaan WHERE perusahaan.status='Aktif') perusahaan,
 			(
 			SELECT
 				count(*)
 			FROM
-				pejabat p) pejabat,
+				pejabat WHERE pejabat.status='Aktif') pejabat,
 			(
 			SELECT
 				count(*)
 			FROM
-				agent) agent,
+				agent WHERE agent.status='Aktif') agent,
 			(
 			SELECT
 				count(*)

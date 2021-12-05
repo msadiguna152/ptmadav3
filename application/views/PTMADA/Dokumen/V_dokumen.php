@@ -29,7 +29,7 @@
                 <tr>
                   <th style="text-align: center;">No</th>
                   <th style="text-align: center;">Nama Dokumen</th>
-                  <th style="text-align: center;">Aksi</th>
+                  <th style="text-align: center;width: 80px;">Opsi</th>
                 </tr>
               </thead>
               <tbody>
@@ -40,33 +40,34 @@
                   <tr>
                     <td style="text-align: center;width: 10px;"><?php echo $no++; ?></td>
                     <td><?php echo $dt['dokumen']; ?></td>
-                    <td style="text-align: center;width: 60px;">
 
-                      <!-- Tombol Edit -->
-                        <a href="<?php echo site_url('Ptmada/edit_dokumen/' . $dt['kd_dokumen']); ?>">
-                          <button class="btn btn-success btn-sm btn-block" data-toggle="tooltip" data-placement="auto" title="Edit Data : <?php echo $dt['dokumen'] ?>">
-                            <i class="fa fa-edit"></i>
-                          </button>
-                        </a>
-                        <!-- Tombol Delete -->
-                        <a href="<?php echo site_url('Ptmada/hapus_dokumen/' . $dt['kd_dokumen']); ?>" onclick="return confirm('Apa Anda Yakin Akan Menghapus Data <?php echo $dt['dokumen'] ?>?')">
-                          <button class="btn btn-danger btn-sm btn-block" data-toggle="tooltip" data-placement="auto" title="Hapus Data : <?php echo $dt['dokumen'] ?>">
-                            <i class="fa fa-trash"></i>
-                          </button>
-                        </a>
+                    <td>
+                      <div class="btn-group">
+                        <button type="button" class="btn btn-info">Aksi</button>
+                        <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+                          <span class="caret"></span>
+                          <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu" style="left: -45px;">
+                          <li>
+                            <a class="dropdown-item" href="<?php echo site_url('Ptmada/edit_dokumen/' . $dt['kd_dokumen']); ?>">
+                              <button class="btn btn-sm btn-primary btn-block">Ubah</button>
+                            </a>
+
+                          </li>
+                          <li>
+                            <a class="dropdown-item" onclick="return confirm('Hapus Data?')" href="<?php echo site_url('Ptmada/hapus_dokumen/' . $dt['kd_dokumen']); ?>">
+                              <button class="btn btn-sm btn-danger btn-block btn-block">Hapus</button>
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
                     </td>
                   </tr>
                 <?php
                 }
                 ?>
               </tbody>
-              <tfoot>
-                <tr>
-                  <th style="text-align: center;">No</th>
-                  <th style="text-align: center;">Nama Dokumen</th>
-                  <th style="text-align: center;">Aksi</th>
-                </tr>
-              </tfoot>
             </table>
           </div>
           <!-- /.box-body -->

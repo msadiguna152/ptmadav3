@@ -166,7 +166,7 @@
                       <div class="form-group">
                         <label for="exampleInputPassword1">Tanggal Mulai</label>
                         <div class="input-group">
-                          <input type="date" name="dari_tgl" required="" id="tgl1" onchange="CalcDiff()" value="<?php echo $permohonan['dari_tgl'] ?>" class="form-control">
+                          <input type="date" name="dari_tgl" required="" id="tgl1" value="<?php echo $permohonan['dari_tgl'] ?>" class="form-control">
                         </div>
                       </div>
                     </div>
@@ -288,23 +288,21 @@
                   <div class="form-group">
                     <div>
                       <label for="exampleInputPassword1">Tanggal Dok. Pendukung</label>
-                      <div class="input-group date">
-                        <div class="input-group-addon">
-                          <i class="fa fa-calendar"></i>
-                        </div>
+                      <div class="row">
+                        <div class="col-md-4">
                         <input type="date" name="tgl_dokumen" required class="form-control pull-right" value="<?php echo $permohonan['tgl_dokumen'] ?>">
                       </div>
+                    </div>
                     </div>
                   </div>
                   <div class="form-group">
                     <div>
                       <label for="exampleInputPassword1">Tanggal Komitmen Dok. Pendukung</label>
-                      <div class="input-group date">
-                        <div class="input-group-addon">
-                          <i class="fa fa-calendar"></i>
-                        </div>
+                      <div class="row">
+                        <div class="col-md-4">
                         <input type="date" name="tgl_komitmen" required value="<?php echo $permohonan['tgl_komitmen'] ?>" class="form-control pull-right">
                       </div>
+                    </div>
                     </div>
                   </div>
                   <div class="form-group">
@@ -340,10 +338,8 @@
                   <div class="form-group">
                     <div>
                       <label for="exampleInputPassword1">Tanggal Permohonan</label>
-                      <div class="input-group date">
-                        <div class="input-group-addon">
-                          <i class="fa fa-calendar"></i>
-                        </div>
+                      <div class="row">
+                        <div class="col-md-4">
                         <input type="date" name="tgl_permohonan" required value="<?php echo $permohonan['tgl_permohonan'] ?>" class="form-control pull-right">
                       </div>
                     </div>

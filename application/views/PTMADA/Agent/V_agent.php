@@ -34,7 +34,7 @@
                   <th style="text-align: center;">Alamat</th>
                   <th style="text-align: center;">E-mail</th>
                   <th style="text-align: center;">No telp</th>
-                  <th style="text-align: center;width: 40px;">Aksi</th>
+                  <th style="text-align: center;width: 80px;">Opsi</th>
                 </tr>
               </thead>
               <tbody>
@@ -45,23 +45,36 @@
                   <tr>
                     <td style="text-align: center;"><?php echo $no++; ?></td>
                     <td><?php echo $dt['induk']; ?></td>
-                    <td><a href="<?php echo site_url('Ptmada/lihat_detail_agent/' . $dt['kd_agent']); ?>"><?php echo $dt['nama_agent']; ?></a></td>
+                    <td><?php echo $dt['nama_agent']; ?></td>
                     <td><?php echo $dt['alamat']; ?></td>
                     <td><?php echo $dt['email']; ?></td>
                     <td><?php echo $dt['no_telp']; ?></td>
-                    <td style="text-align: center;">
-                      <!-- Tombol Edit -->
-                        <a href="<?php echo site_url('Ptmada/edit_agent/' . $dt['kd_agent']); ?>">
-                          <button class="btn btn-success btn-sm btn-block" data-toggle="tooltip" data-placement="auto" title="Edit Data : <?php echo $dt['nama_agent'] ?>">
-                            <i class="fa fa-edit"></i>
-                          </button>
-                        </a>
-                        <!-- Tombol Delete -->
-                        <a href="<?php echo site_url('Ptmada/hapus_agent/' . $dt['kd_agent']); ?>" onclick="return confirm('Apa Anda Yakin Akan Menghapus Data <?php echo $dt['nama_agent'] ?>?')">
-                          <button class="btn btn-danger btn-sm btn-block" data-toggle="tooltip" data-placement="auto" title="Hapus Data : <?php echo $dt['nama_agent'] ?>">
-                            <i class="fa fa-trash"></i>
-                          </button>
-                        </a>
+                    <td>
+                      <div class="btn-group">
+                        <button type="button" class="btn btn-info">Aksi</button>
+                        <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+                          <span class="caret"></span>
+                          <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu" style="left: -45px;">
+                          <li>
+                            <a href="<?php echo site_url('Ptmada/lihat_detail_agent/' . $dt['kd_agent']); ?>">
+                              <button class="btn btn-sm btn-success btn-block">Detail</button>
+                            </a>
+                          </li>
+                          <li>
+                            <a class="dropdown-item" href="<?php echo site_url('Ptmada/edit_agent/' . $dt['kd_agent']); ?>">
+                              <button class="btn btn-sm btn-primary btn-block">Ubah</button>
+                            </a>
+                            
+                          </li>
+                          <li>
+                            <a class="dropdown-item" onclick="return confirm('Hapus Data?')" href="<?php echo site_url('Ptmada/hapus_agent/' . $dt['kd_agent']); ?>">
+                              <button class="btn btn-sm btn-danger btn-block btn-block">Hapus</button>
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
                     </td>
                   </tr>
                 <?php

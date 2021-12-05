@@ -42,12 +42,6 @@
                 }
                 ?>
               </tbody>
-              <tfoot>
-                <tr>
-                  <th style="text-align: center;width: 10px;">No</th>
-                  <th style="text-align: center">Jenis Jaminan</th>
-                </tr>
-              </tfoot>
             </table>
           </div>
           <!-- /.box-body -->

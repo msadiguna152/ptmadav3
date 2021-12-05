@@ -29,7 +29,7 @@
                   <th style="text-align: center;">Nama Pejabat</th>
                   <th style="text-align: center;">Instansi</th>
                   <th style="text-align: center;">No telp</th>
-                  <th style="text-align: center; width: 40px;">Aksi</th>
+                  <th style="text-align: center; width: 80px;">Opsi</th>
                 </tr>
               </thead>
               <tbody>
@@ -39,40 +39,43 @@
                 ?>
                   <tr>
                     <td style="text-align: center;"><?php echo $no++; ?></td>
-                    <td><a href="<?php echo site_url('Ptmada/lihat_detail_pejabat/' . $dt['kd_pejabat']); ?>"><?php echo $dt['nama_pejabat']; ?></a></td>
+                    <td><?php echo $dt['nama_pejabat']; ?></td>
                     <td><?php echo $dt['instansi']; ?></td>
                     <td><?php echo $dt['no_telp']; ?></td>
+
                     <td>
-                        <!-- Tombol Edit -->
-                        <a href="<?php echo site_url('Ptmada/edit_pejabat/' . $dt['kd_pejabat']); ?>">
-                          <button class="btn btn-success btn-sm btn-block" data-toggle="tooltip" data-placement="auto" title="Edit Data : <?php echo $dt['nama_pejabat'] ?>">
-                            <i class="fa fa-edit"></i>
-                          </button>
-                        </a>
-                        <!-- Tombol Delete -->
-                        <a href="<?php echo site_url('Ptmada/hapus_pejabat/' . $dt['kd_pejabat']); ?>" onclick="return confirm('Apa Anda Yakin Akan Menghapus Data <?php echo $dt['nama_pejabat'] ?>?')">
-                          <button class="btn btn-danger btn-sm btn-block" data-toggle="tooltip" data-placement="auto" title="Hapus Data : <?php echo $dt['nama_pejabat'] ?>">
-                            <i class="fa fa-trash"></i>
-                          </button>
-                        </a>
+                      <div class="btn-group">
+                        <button type="button" class="btn btn-info">Aksi</button>
+                        <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+                          <span class="caret"></span>
+                          <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu" style="left: -45px;">
+                          <li>
+                            <a href="<?php echo site_url('Ptmada/lihat_detail_pejabat/' . $dt['kd_pejabat']); ?>">
+                              <button class="btn btn-sm btn-success btn-block">Detail</button>
+                            </a>
+                          </li>
+
+                          <li>
+                            <a class="dropdown-item" href="<?php echo site_url('Ptmada/edit_pejabat/' . $dt['kd_pejabat']); ?>">
+                              <button class="btn btn-sm btn-primary btn-block">Ubah</button>
+                            </a>
+
+                          </li>
+                          <li>
+                            <a class="dropdown-item" onclick="return confirm('Hapus Data?')" href="<?php echo site_url('Ptmada/hapus_pejabat/' . $dt['kd_pejabat']); ?>">
+                              <button class="btn btn-sm btn-danger btn-block btn-block">Hapus</button>
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
                     </td>
                   </tr>
                 <?php
                 }
                 ?>
               </tbody>
-              <tfoot>
-                <tr>
-                  <th>No</th>
-                  <!-- <th>NIP</th> -->
-                  <th>Nama Pejabat</th>
-                  <th>Alamat</th>
-                  <!-- <th>E-mail</th> -->
-                  <th>No telp</th>
-                  <th>Instansi</th>
-                  <th>Aksi</th>
-                </tr>
-              </tfoot>
             </table>
           </div>
           <!-- /.box-body -->

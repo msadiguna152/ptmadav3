@@ -22,15 +22,14 @@
           </div>
           <!-- /.box-header -->
           <div class="box-body table-responsive">
-            <table id="example4" class="table table-bordered table-hover">
+            <table id="example1" class="table table-bordered table-hover">
               <thead>
                 <tr>
                   <th style="text-align: center;">No</th>
                   <th style="text-align: center;">Nama Perusahaan</th>
                   <th style="text-align: center;">Nama Pimpinan</th>
                   <th style="text-align: center;">Alamat</th>
-                  <th style="text-align: center;">Edit</th>
-                  <th style="text-align: center;">Hapus</th>
+                  <th style="text-align: center; width: 80px;">Opsi</th>
                 </tr>
               </thead>
               <tbody>
@@ -41,28 +40,38 @@
                   <tr>
                     <td style="text-align: center;"><?php echo $no++; ?></td>
                     <td>
-                      <a href="<?php echo base_url('Ptmada/detail_perusahaan/' . $dt['kd_perusahaan']) ?>" data-toggle="tooltip" data-placement="auto" title="Lihat Data : <?php echo $dt['nama_perusahaan'] ?>">
-                        <?php echo $dt['nama_perusahaan']; ?>
-                      </a>
+                      <?php echo $dt['nama_perusahaan']; ?>
                     </td>
                     <td><?php echo $dt['nama_direktur']; ?></td>
                     <td><?php echo $dt['alamat']; ?></td>
 
-                    <td style="text-align: center;">
-                      <!-- Tombol Edit -->
-                        <a href="<?php echo site_url('Ptmada/edit_perusahaan/' . $dt['kd_perusahaan']); ?>">
-                          <button class="btn btn-success btn-sm " data-toggle="tooltip" data-placement="auto" title="Edit Data Perusahaan : <?php echo $dt['nama_perusahaan'] ?>">
-                            <i class="fa fa-edit"></i>
-                          </button>
-                        </a>
-                    </td>
-                    <td style="text-align: center;">
-                        <!-- Tombol Delete -->
-                        <a href="<?php echo site_url('Ptmada/hapus_perusahaan/' . $dt['kd_perusahaan']); ?>" onclick="return confirm('Apa Anda Yakin Akan Menghapus Data <?php echo $dt['nama_perusahaan'] ?>?')">
-                          <button class="btn btn-danger btn-sm " data-toggle="tooltip" data-placement="auto" title="Hapus Data Perusahaan : <?php echo $dt['nama_perusahaan'] ?>">
-                            <i class="fa fa-trash"></i>
-                          </button>
-                        </a>
+                    <td>
+                      <div class="btn-group">
+                        <button type="button" class="btn btn-info">Aksi</button>
+                        <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+                          <span class="caret"></span>
+                          <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu" style="left: -45px;">
+                          <li>
+                            <a href="<?php echo base_url('Ptmada/detail_perusahaan/' . $dt['kd_perusahaan']) ?>">
+                              <button class="btn btn-sm btn-success btn-block">Detail</button>
+                            </a>
+                          </li>
+
+                          <li>
+                            <a class="dropdown-item" href="<?php echo site_url('Ptmada/edit_perusahaan/' . $dt['kd_perusahaan']); ?>">
+                            <button class="btn btn-sm btn-primary btn-block">Ubah</button>
+                          </a>
+                          
+                          </li>
+                          <li>
+                            <a class="dropdown-item" onclick="return confirm('Hapus Data?')" href="<?php echo site_url('Ptmada/hapus_perusahaan/' . $dt['kd_perusahaan']); ?>">
+                            <button class="btn btn-sm btn-danger btn-block btn-block">Hapus</button>
+                          </a>
+                          </li>
+                        </ul>
+                      </div>
                     </td>
                   </tr>
                 <?php

@@ -108,141 +108,230 @@
 
                   <div class="form-group">
                     <label for="exampleInputFile">Company Profile</label>
-                    <input type="text" name="company_profile_lama" class="form-control" value="<?php echo $data['company_profile'] ?>" readonly>
-
-                    <div class="form-check">
-                      <input class="form-check-input" name="hapus_cp" type="checkbox" value="Hapus File">
-                      <label class="form-check-label">Hapus File</label>
+                    <div class="row">
+                      <div class="col-md-8">
+                        <input type="text" name="company_profile_lama" class="form-control" value="<?php echo $data['company_profile'] ?>" readonly>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-check">
+                          <input class="form-check-input" name="hapus_cp" type="checkbox" value="Hapus File">
+                          <label class="form-check-label">Hapus File</label>
+                        </div>
+                      </div>
                     </div>
 
-                    <input type="file" name="company_profil">
+                    <input type="file" name="company_profil" class="form-control">
                   </div>
                   <div class="form-group">
                     <label for="exampleInputFile">Akta Pendirian</label>
-                    <input type="text" name="akta_pendirian_lama" class="form-control" value="<?php echo $data['akta_pendirian'] ?>" readonly>
-
-                    <div class="form-check">
-                      <input class="form-check-input" name="hapus_ap" type="checkbox" value="Hapus File">
-                      <label class="form-check-label">Hapus File</label>
+                    <div class="row">
+                      <div class="col-md-8">
+                        <input type="text" name="akta_pendirian_lama" class="form-control" value="<?php echo $data['akta_pendirian'] ?>" readonly>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-check">
+                          <input class="form-check-input" name="hapus_ap" type="checkbox" value="Hapus File">
+                          <label class="form-check-label">Hapus File</label>
+                        </div>
+                      </div>
                     </div>
 
-                    <input type="file" name="akta_pendirian">
+                    <input type="file" name="akta_pendirian" class="form-control">
                   </div>
+
                   <div class="form-group">
                     <label for="exampleInputFile">SPKMGR</label>
-                    <input type="text" name="spkmgr_lama" class="form-control" value="<?php echo $data['spkmgr'] ?>" readonly>
+                    <div class="row">
+                      <div class="col-md-8">
+                        <input type="text" name="spkmgr_lama" class="form-control" value="<?php echo $data['spkmgr'] ?>" readonly>
 
-                    <div class="form-check">
-                      <input class="form-check-input" name="hapus_spkmgr" type="checkbox" value="Hapus File">
-                      <label class="form-check-label">Hapus File</label>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-check">
+                          <input class="form-check-input" name="hapus_spkmgr" type="checkbox" value="Hapus File">
+                          <label class="form-check-label">Hapus File</label>
+                        </div>
+                      </div>
                     </div>
 
-                    <input type="file" name="spkmgr">
+                    <input type="file" name="spkmgr" class="form-control">
                   </div>
 
                   <div class="form-group">
                     <label for="exampleInputFile">STDP</label>
-                    <input type="text" name="stdp_lama" class="form-control" value="<?php echo $data['stdp'] ?>" readonly>
-                    <div class="form-check">
-                      <input class="form-check-input" name="hapus_stdp" type="checkbox" value="Hapus File">
-                      <label class="form-check-label">Hapus File</label>
+                    <div class="row">
+                      <div class="col-md-8">
+                        <input type="text" name="stdp_lama" class="form-control" value="<?php echo $data['stdp'] ?>" readonly>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-check">
+                          <input class="form-check-input" name="hapus_stdp" type="checkbox" value="Hapus File">
+                          <label class="form-check-label">Hapus File</label>
+                        </div>
+                      </div>
                     </div>
-                    <input type="file" name="stdp">
+                    <input type="file" name="stdp" class="form-control">
+                    
                   </div>
                   
                   <div class="form-group">
                     <label for="exampleInputFile">SIUP</label>
-                    <input type="text" name="siup_lama" class="form-control" value="<?php echo $data['siup'] ?>" readonly>
-                    <div class="form-check">
-                      <input class="form-check-input" name="hapus_siup" type="checkbox" value="Hapus File">
-                      <label class="form-check-label">Hapus File</label>
+                    <div class="row">
+                      <div class="col-md-8">
+                        <input type="text" name="siup_lama" class="form-control" value="<?php echo $data['siup'] ?>" readonly>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-check">
+                          <input class="form-check-input" name="hapus_siup" type="checkbox" value="Hapus File">
+                          <label class="form-check-label">Hapus File</label>
+                        </div>
+                      </div>
                     </div>
-                    <input type="file" name="siup">
+                      <input type="file" name="siup" class="form-control">
                   </div>
+
                   <div class="form-group">
                     <label for="exampleInputFile">SKTU</label>
-                    <input type="text" name="sktu_lama" class="form-control" required="" value="<?php echo $data['sktu'] ?>" readonly>
-                    <div class="form-check">
-                      <input class="form-check-input" name="hapus_sktu" type="checkbox" value="Hapus File">
-                      <label class="form-check-label">Hapus File</label>
+                    <div class="row">
+                      <div class="col-md-8">
+                        <input type="text" name="sktu_lama" class="form-control" required="" value="<?php echo $data['sktu'] ?>" readonly>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-check">
+                          <input class="form-check-input" name="hapus_sktu" type="checkbox" value="Hapus File">
+                          <label class="form-check-label">Hapus File</label>
+                        </div>
+                      </div>
                     </div>
-                    <input type="file" name="sktu">
+                    <input type="file" name="sktu" class="form-control">
                   </div>
+
                   <div class="form-group">
                     <label for="exampleInputFile">SIUJK</label>
-                    <input type="text" name="siujk_lama" class="form-control" required="" value="<?php echo $data['siujk'] ?>" readonly>
-                    <div class="form-check">
-                      <input class="form-check-input" name="hapus_siujk" type="checkbox" value="Hapus File">
-                      <label class="form-check-label">Hapus File</label>
+                    <div class="row">
+                      <div class="col-md-8">
+                        <input type="text" name="siujk_lama" class="form-control" required="" value="<?php echo $data['siujk'] ?>" readonly>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-check">
+                          <input class="form-check-input" name="hapus_siujk" type="checkbox" value="Hapus File">
+                          <label class="form-check-label">Hapus File</label>
+                        </div>
+                      </div>
                     </div>
-                    <input type="file" name="siujk">
+
+                    <input type="file" name="siujk" class="form-control">
                   </div>
+
                   <div class="form-group">
                     <label for="exampleInputFile">SPT</label>
-                    <input type="text" name="spt_lama" class="form-control" required="" value="<?php echo $data['spt'] ?>" readonly>
-                    <div class="form-check">
-                      <input class="form-check-input" name="hapus_spt" type="checkbox" value="Hapus File">
-                      <label class="form-check-label">Hapus File</label>
+                    <div class="row">
+                      <div class="col-md-8">
+                        <input type="text" name="spt_lama" class="form-control" required="" value="<?php echo $data['spt'] ?>" readonly>
+                      </div>
+                      <div class="col-md-4">
+                        <div class="form-check">
+                          <input class="form-check-input" name="hapus_spt" type="checkbox" value="Hapus File">
+                          <label class="form-check-label">Hapus File</label>
+                        </div>
+                      </div>
                     </div>
-                    <input type="file" name="spt">
+                    <input type="file" class="form-control" name="spt">
                   </div>
+
                   <div class="form-group">
                     <label for="exampleInputFile">KTP</label>
+                    <div class="row">
+                      <div class="col-md-8">
                     <input type="text" name="ktp_lama" class="form-control" required="" value="<?php echo $data['ktp'] ?>" readonly>
+                    </div>
+                    <div class="col-md-4">
                     <div class="form-check">
                       <input class="form-check-input" name="hapus_ktp" type="checkbox" value="Hapus File">
                       <label class="form-check-label">Hapus File</label>
                     </div>
-                    <input type="file" name="ktp">
+                  </div>
+                </div>
+                    <input type="file" class="form-control" name="ktp">
                   </div>
                   <div class="form-group">
                     <label for="exampleInputFile">Laporan Keuangan</label>
+                    <div class="row">
+                      <div class="col-md-8">
                     <input type="text" name="laporan_lama" class="form-control" required="" value="<?php echo $data['laporan_keuangan'] ?>" readonly>
+                    </div>
+                    <div class="col-md-4">
                     <div class="form-check">
                       <input class="form-check-input" name="hapus_lk" type="checkbox" value="Hapus File">
                       <label class="form-check-label">Hapus File</label>
                     </div>
-                    <input type="file" name="laporan">
+                  </div>
+                </div>
+                    <input type="file" class="form-control" name="laporan">
                   </div>
                   <div class="form-group">
                     <label for="exampleInputFile">Proyek Sebelumnya</label>
+                    <div class="row">
+                      <div class="col-md-8">
                     <input type="text" name="proyek_lama" class="form-control" required="" value="<?php echo $data['proyek_sebelumnya'] ?>" readonly>
+                    </div>
+                    <div class="col-md-4">
                     <div class="form-check">
                       <input class="form-check-input" name="hapus_ps" type="checkbox" value="Hapus File">
                       <label class="form-check-label">Hapus File</label>
                     </div>
-                    <input type="file" name="proyek">
+                  </div>
+                </div>
+                    <input type="file" class="form-control" name="proyek">
                   </div>
                   <div class="form-group">
                     <label for="exampleInputFile">NPWP</label>
+                    <div class="row">
+                      <div class="col-md-8">
                     <input type="text" name="npwp_lama" class="form-control" required="" value="<?php echo $data['npwp_file'] ?>" readonly>
+                    </div>
+                    <div class="col-md-4">
                     <div class="form-check">
                       <input class="form-check-input" name="hapus_npwp" type="checkbox" value="Hapus File">
                       <label class="form-check-label">Hapus File</label>
                     </div>
-                    <input type="file" name="npwp_file">
+                  </div>
+                </div>
+                    <input type="file" class="form-control" name="npwp_file">
                   </div>
 
                   <!-- Edit By Adiguna -->
 
                   <div class="form-group">
                     <label for="exampleInputFile">Tanda Keanggotaan Asosiasi</label>
+                    <div class="row">
+                      <div class="col-md-8">
                     <input type="text" name="tanda_keanggotaan_asosiasi_lama" class="form-control" required="" value="<?php echo $data['tanda_keanggotaan_asosiasi'] ?>" readonly>
+                    </div>
+                    <div class="col-md-4">
                     <div class="form-check">
                       <input class="form-check-input" name="hapus_kta" type="checkbox" value="Hapus File">
                       <label class="form-check-label">Hapus File</label>
                     </div>
-                    <input type="file" name="tanda_keanggotaan_asosiasi">
+                  </div>
+                </div>
+                    <input type="file" class="form-control" name="tanda_keanggotaan_asosiasi">
                   </div>
 
                   <div class="form-group">
                     <label for="exampleInputFile">Akta Perubahan Perusahaan</label>
+                    <div class="row">
+                      <div class="col-md-8">
                     <input type="text" name="akta_perubahan_perusahaan_lama" class="form-control" required="" value="<?php echo $data['akta_perubahan_perusahaan'] ?>" readonly>
+                    </div>
+                    <div class="col-md-4">
                     <div class="form-check">
                       <input class="form-check-input" name="hapus_app" type="checkbox" value="Hapus File">
                       <label class="form-check-label">Hapus File</label>
                     </div>
-                    <input type="file" name="akta_perubahan_perusahaan">
+                  </div>
+                </div>
+                    <input type="file" class="form-control" name="akta_perubahan_perusahaan">
                   </div>
                   <!-- /.form-group -->
                 </div>

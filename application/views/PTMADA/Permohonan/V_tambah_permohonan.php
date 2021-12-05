@@ -29,10 +29,9 @@
     var persen = document.getElementById('text').value;
     var nilai_proyek = document.getElementById('nilai_proyek').value;
 
+    var hasil = nilai_proyek * (persen / 100);
 
-    // var hasil = parseInt(nilai_proyek, 10) * (persen / 100);
-
-    var nilai_jaminan = document.getElementById('nilai_jaminan').value = parseInt(nilai_proyek);
+    var nilai_jaminan = document.getElementById('nilai_jaminan').value = hasil;
 
   }
 
@@ -175,7 +174,7 @@
                       <div class="form-group">
                         <label for="exampleInputPassword1">Tanggal Mulai</label>
                         <div class="input-group">
-                          <input type="text" name="dari_tgl" required="" id="tgl1" value="<?= set_value('dari_tgl')?>" class="form-control datetimepicker-input">
+                          <input type="date" name="dari_tgl" required="" id="tgl1" value="<?= set_value('dari_tgl')?>" class="form-control">
                         </div>
                       </div>
                     </div>
@@ -215,7 +214,7 @@
 
                   <div class="form-group">
                     <label for="exampleInputEmail1">Nama Instansi</label>
-                    <select class="form-control selectpicker show-tick table-responsive" required="" name="id_instansi" onchange="Value2(this.value)" data-live-search="true" required="" data-style="btn-primary" title="Pilih Nama Instansi" data-size="5">
+                    <select class="form-control selectpicker show-tick <?= form_error('id_instansi') ? 'is-invalid' : null ?>"  name="id_instansi" id="id_instansi" onchange="Value2(this.value)" data-live-search="true" required="" data-style="btn-primary" title="Pilih Nama Instansi" data-size="5">
                       <?php 
                       $js2 = "var prd2 = new Array();\n";
                       foreach ($instansi as $key2) { 
@@ -296,22 +295,20 @@
                   <div class="form-group">
                     <div>
                       <label for="exampleInputPassword1">Tanggal Dok. Pendukung</label>
-                      <div class="input-group date">
-                        <div class="input-group-addon">
-                          <i class="fa fa-calendar"></i>
+                      <div class="row">
+                        <div class="col-md-4">
+                          <input type="date" value="<?= set_value('tgl_dokumen')?>" name="tgl_dokumen" required="" class="form-control">
                         </div>
-                        <input type="text" value="<?= set_value('tgl_dokumen')?>" name="tgl_dokumen" required="" class="form-control datetimepicker-input">
                       </div>
                     </div>
                   </div>
                   <div class="form-group">
                     <div>
                       <label for="exampleInputPassword1">Tanggal Komitmen Dok. Pendukung</label>
-                      <div class="input-group date">
-                        <div class="input-group-addon">
-                          <i class="fa fa-calendar"></i>
+                      <div class="row">
+                        <div class="col-md-4">
+                          <input type="date" value="<?= set_value('tgl_komitmen')?>" name="tgl_komitmen" class="form-control">
                         </div>
-                        <input type="text" value="<?= set_value('tgl_komitmen')?>" name="tgl_komitmen" class="form-control datetimepicker-input">
                       </div>
                     </div>
                   </div>
@@ -346,12 +343,12 @@
                   <div class="form-group">
                     <div>
                       <label for="exampleInputPassword1">Tanggal Permohonan</label>
-                      <div class="input-group date">
-                        <div class="input-group-addon">
-                          <i class="fa fa-calendar"></i>
+                      <div class="row">
+                        <div class="col-md-4">
+                          <input type="date" required value="<?= set_value('tgl_permohonan')?>" name="tgl_permohonan" class="form-control pull-right" >
                         </div>
-                        <input type="date" required value="<?= set_value('tgl_permohonan')?>" name="tgl_permohonan" class="form-control pull-right" >
                       </div>
+
                     </div>
                   </div>
                   <!-- /.form-group -->
@@ -420,31 +417,5 @@
     });
   </script>
 
-  <script type="text/javascript">
 
-    var rupiah = document.getElementById('nilai_proyek');
-    rupiah.addEventListener('keyup', function(e){
-      // tambahkan 'Rp.' pada saat form di ketik
-      // gunakan fungsi formatRupiah() untuk mengubah angka yang di ketik menjadi format angka
-      rupiah.value = formatRupiah(this.value, 'Rp. ');
-    });
-
-    /* Fungsi formatRupiah */
-    function formatRupiah(angka, prefix){
-      var number_string = angka.replace(/[^,\d]/g, '').toString(),
-      split= number_string.split(','),
-      sisa= split[0].length % 3,
-      rupiah= split[0].substr(0, sisa),
-      ribuan= split[0].substr(sisa).match(/\d{3}/gi);
-
-      // tambahkan titik jika yang di input sudah menjadi angka ribuan
-      if(ribuan){
-        separator = sisa ? '.' : '';
-        rupiah += separator + ribuan.join('.');
-      }
-
-      rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
-      return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
-    }
-  </script>
 
